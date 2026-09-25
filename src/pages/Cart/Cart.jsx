@@ -1,9 +1,17 @@
+// =========================================================
+// Cart — carrinho de compras (/carrinho)
+// ---------------------------------------------------------
+// Lista os itens, permite mudar quantidade/remover, mostra a
+// barra de frete grátis, aplica cupom e leva ao checkout.
+// Sem cadastro, o botão manda primeiro para /cadastro.
+// =========================================================
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import ProductArt from '../../components/ProductArt/ProductArt.jsx'
 import Mascot from '../../components/Logo/Mascot.jsx'
 import { TrashIcon } from '../../components/Icons.jsx'
 import { useCart } from '../../context/CartContext.jsx'
+import { useUser } from '../../context/UserContext.jsx'
 import { FRETE_GRATIS_A_PARTIR } from '../../context/cartConfig.js'
 import { formatPrice } from '../../utils/format.js'
 import './Cart.css'
@@ -11,10 +19,12 @@ import './Cart.css'
 function Cart() {
   const { items, subtotal, discount, shipping, total, coupon, updateQty, removeItem, applyCoupon, removeCoupon } =
     useCart()
+  const { user } = useUser()
   const [code, setCode] = useState('')
   const [couponMsg, setCouponMsg] = useState(null)
   const navigate = useNavigate()
 
+  // Tenta aplicar o cupom digitado e mostra mensagem de sucesso/erro
   const handleCoupon = (e) => {
     e.preventDefault()
     const ok = applyCoupon(code)
@@ -22,6 +32,13 @@ function Cart() {
     if (ok) setCode('')
   }
 
+  // Finalizar: com cadastro vai ao checkout; sem cadastro, vai cadastrar antes
+  const handleCheckout = () => {
+    if (user) navigate('/checkout')
+    else navigate('/cadastro', { state: { from: '/checkout' } })
+  }
+
+  // ---------- Carrinho vazio ----------
   if (items.length === 0) {
     return (
       <div className="container">
@@ -37,6 +54,7 @@ function Cart() {
     )
   }
 
+  // Quanto falta para o frete grátis e % da barra de progresso
   const missing = FRETE_GRATIS_A_PARTIR - subtotal
   const progress = Math.min(100, (subtotal / FRETE_GRATIS_A_PARTIR) * 100)
 
@@ -48,7 +66,9 @@ function Cart() {
       </header>
 
       <div className="cart">
+        {/* ---- Lista de itens ---- */}
         <section className="cart__items" aria-label="Itens do carrinho">
+          {/* Barra de progresso do frete grátis */}
           <div className="shipping-bar">
             <p>
               {missing > 0 ? (
@@ -64,6 +84,7 @@ function Cart() {
             </div>
           </div>
 
+          {/* Um card por item (produto + cor + tamanho) */}
           {items.map((item) => (
             <article key={item.key} className="cart-item">
               <Link to={`/produto/${item.slug}`} className="cart-item__art">
@@ -101,6 +122,7 @@ function Cart() {
           ))}
         </section>
 
+        {/* ---- Resumo com totais, cupom e botão de finalizar ---- */}
         <aside className="summary">
           <h2>Resumo</h2>
           <dl>
@@ -148,8 +170,14 @@ function Cart() {
           )}
           {couponMsg && <p className={`summary__msg summary__msg--${couponMsg.type}`}>{couponMsg.text}</p>}
 
-          <button type="button" className="btn btn--primary btn--block" onClick={() => navigate('/checkout')}>
-            Finalizar compra
+          {/* Aviso: só finaliza a compra quem tem cadastro */}
+          {!user && (
+            <p className="summary__login">
+              Para finalizar a compra é preciso ter <Link to="/cadastro" state={{ from: '/checkout' }}>cadastro</Link>.
+            </p>
+          )}
+          <button type="button" className="btn btn--primary btn--block" onClick={handleCheckout}>
+            {user ? 'Finalizar compra' : 'Cadastrar e finalizar'}
           </button>
           <Link to="/loja" className="summary__continue">
             Continuar comprando

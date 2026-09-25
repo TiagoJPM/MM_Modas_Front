@@ -1,16 +1,48 @@
-// Catálogo fictício da MM MODAS.
-// "type" define qual ilustração de peça é desenhada (ver ProductArt).
+// =========================================================
+// Catálogo fictício da MM MODAS (moda masculina)
+// ---------------------------------------------------------
+// - categories: lista de categorias exibidas na Home, na Loja e no rodapé.
+//   O campo "art" diz qual ilustração representa a categoria.
+// - products: cada produto tem um "type" que define qual peça o
+//   componente ProductArt desenha (tee, shirt, boxer, beanie...).
+// - tags: ['novo'] faz o produto aparecer em "Novidades" na Home.
+// - oldPrice (opcional): preço antigo, usado para mostrar o desconto.
+// =========================================================
+
+// Paleta de cores reaproveitada nos produtos (evita repetir hex)
+const cor = {
+  lavanda: { name: 'Lavanda', hex: '#c8b3f0' },
+  roxoClaro: { name: 'Roxo claro', hex: '#b7a0ea' },
+  lilas: { name: 'Lilás', hex: '#d3c1f5' },
+  pessego: { name: 'Pêssego', hex: '#ffc596' },
+  laranja: { name: 'Laranja suave', hex: '#ffb57d' },
+  offWhite: { name: 'Off-white', hex: '#fbf6ee' },
+  areia: { name: 'Areia', hex: '#e9d6bf' },
+  grafite: { name: 'Grafite lilás', hex: '#6e6190' },
+  jeans: { name: 'Jeans lavado', hex: '#a9b8e0' },
+  azulCeu: { name: 'Azul céu', hex: '#bcd3f2' },
+  verdeMenta: { name: 'Verde menta', hex: '#bfe3cf' },
+}
+
+// Grades de tamanho usadas pelos produtos
+const TAM_ROUPA = ['P', 'M', 'G', 'GG']
+const TAM_CALCA = ['38', '40', '42', '44', '46']
+const TAM_MEIA = ['37-40', '41-44']
+const TAM_UNICO = ['Único']
 
 export const categories = [
-  { id: 'camisetas', name: 'Camisetas', art: 'tee', bg: 'var(--laranja-200)' },
-  { id: 'moletons', name: 'Moletons', art: 'hoodie', bg: 'var(--roxo-200)' },
-  { id: 'jaquetas', name: 'Jaquetas', art: 'jacket', bg: 'var(--roxo-100)' },
-  { id: 'calcas-shorts', name: 'Calças & Shorts', art: 'pants', bg: 'var(--laranja-100)' },
-  { id: 'vestidos', name: 'Vestidos', art: 'dress', bg: 'var(--laranja-200)' },
-  { id: 'acessorios', name: 'Acessórios', art: 'cap', bg: 'var(--roxo-200)' },
+  { id: 'camisetas', name: 'Camisetas & Regatas', art: 'tee', bg: 'var(--laranja-200)' },
+  { id: 'camisas', name: 'Camisas', art: 'shirt', bg: 'var(--roxo-200)' },
+  { id: 'moletons', name: 'Moletons & Tricô', art: 'hoodie', bg: 'var(--roxo-100)' },
+  { id: 'jaquetas', name: 'Jaquetas', art: 'jacket', bg: 'var(--laranja-100)' },
+  { id: 'calcas-bermudas', name: 'Calças & Bermudas', art: 'pants', bg: 'var(--roxo-200)' },
+  { id: 'underwear', name: 'Underwear', art: 'boxer', bg: 'var(--laranja-200)' },
+  { id: 'training', name: 'Training', art: 'dryfit', bg: 'var(--laranja-100)' },
+  { id: 'acessorios', name: 'Acessórios', art: 'cap', bg: 'var(--roxo-100)' },
 ]
 
 export const products = [
+  // ---------- Camisetas & Regatas ----------
   {
     id: 1,
     slug: 'camiseta-sorriso-maroto',
@@ -19,199 +51,430 @@ export const products = [
     type: 'tee',
     price: 89.9,
     oldPrice: 119.9,
-    colors: [
-      { name: 'Lavanda', hex: '#c8b3f0' },
-      { name: 'Pêssego', hex: '#ffc596' },
-      { name: 'Off-white', hex: '#fbf6ee' },
-    ],
-    sizes: ['P', 'M', 'G', 'GG'],
-    tags: ['drop'],
+    colors: [cor.lavanda, cor.pessego, cor.offWhite],
+    sizes: TAM_ROUPA,
+    tags: ['novo'],
     description:
-      'A camiseta que começou tudo. Algodão penteado 100%, modelagem levemente oversized e o sorriso do Menino Mau estampado no peito. Pra quem não pede licença pra ser quem é.',
+      'A camiseta que começou tudo. Algodão penteado 100%, modelagem levemente oversized e o sorriso do Menino Mau estampado no peito.',
   },
   {
     id: 2,
+    slug: 'camiseta-sem-pedir-licenca',
+    name: 'Camiseta Sem Pedir Licença',
+    category: 'camisetas',
+    type: 'tee',
+    price: 79.9,
+    colors: [cor.offWhite, cor.roxoClaro],
+    sizes: TAM_ROUPA,
+    tags: [],
+    description:
+      'Básica? Nunca. Malha fio 30, gola canelada e a frase que resume a marca nas costas. Combina com tudo — principalmente com atitude.',
+  },
+  {
+    id: 3,
+    slug: 'regata-cachos-ao-vento',
+    name: 'Regata Cachos ao Vento',
+    category: 'camisetas',
+    type: 'tank',
+    price: 69.9,
+    colors: [cor.pessego, cor.lavanda, cor.offWhite],
+    sizes: TAM_ROUPA,
+    tags: ['novo'],
+    description:
+      'Cavas amplas, malha leve e caimento reto. Feita pro calor do Nordeste e pra quem gosta de deixar o braço falar.',
+  },
+  {
+    id: 4,
+    slug: 'polo-menino-bom',
+    name: 'Polo Menino Bom (Só na Aparência)',
+    category: 'camisetas',
+    type: 'polo',
+    price: 139.9,
+    colors: [cor.lilas, cor.areia],
+    sizes: TAM_ROUPA,
+    tags: [],
+    description:
+      'Piquet de algodão, gola firme e dois botões. Cara de bom moço pro almoço de família — o resto a gente não conta.',
+  },
+
+  // ---------- Camisas ----------
+  {
+    id: 5,
+    slug: 'camisa-botao-vibe',
+    name: 'Camisa de Botão Vibe',
+    category: 'camisas',
+    type: 'shirt',
+    price: 159.9,
+    colors: [cor.lavanda, cor.areia],
+    sizes: TAM_ROUPA,
+    tags: [],
+    description:
+      'Linho misto, caimento solto e botões de coco. Aberta por cima da camiseta ou fechada pro jantar — você escolhe a vibe.',
+  },
+  {
+    id: 6,
+    slug: 'camisa-social-maroto',
+    name: 'Camisa Social Maroto',
+    category: 'camisas',
+    type: 'dressshirt',
+    price: 189.9,
+    colors: [cor.azulCeu, cor.offWhite, cor.lilas],
+    sizes: TAM_ROUPA,
+    tags: ['novo'],
+    description:
+      'Tricoline que não amassa, colarinho estruturado e punho com dois botões. Pra entrevista, formatura ou pra impressionar o chefe.',
+  },
+  {
+    id: 7,
+    slug: 'camisa-flanela-role-frio',
+    name: 'Camisa de Flanela Rolê Frio',
+    category: 'camisas',
+    type: 'flannel',
+    price: 169.9,
+    colors: [cor.laranja, cor.roxoClaro],
+    sizes: TAM_ROUPA,
+    tags: [],
+    description:
+      'Xadrez em tons de laranja e lilás, flanela escovada macia e bolsos no peito. Vira jaqueta leve nas noites mais frias.',
+  },
+
+  // ---------- Moletons & Tricô ----------
+  {
+    id: 8,
     slug: 'moletom-sem-filtro',
     name: 'Moletom Sem Filtro',
     category: 'moletons',
     type: 'hoodie',
     price: 219.9,
-    colors: [
-      { name: 'Roxo claro', hex: '#b7a0ea' },
-      { name: 'Laranja suave', hex: '#ffb57d' },
-    ],
-    sizes: ['P', 'M', 'G', 'GG'],
+    colors: [cor.roxoClaro, cor.laranja],
+    sizes: TAM_ROUPA,
     tags: ['novo'],
     description:
-      'Moletom flanelado por dentro, capuz forrado e bolso canguru. Quentinho, mas sem perder a pose. Punhos e barra em ribana reforçada.',
+      'Moletom flanelado por dentro, capuz forrado e bolso canguru. Quentinho, mas sem perder a pose.',
   },
   {
-    id: 3,
-    slug: 'calca-cargo-role',
-    name: 'Calça Cargo Rolê',
-    category: 'calcas-shorts',
-    type: 'pants',
-    price: 179.9,
-    colors: [
-      { name: 'Areia', hex: '#e9d6bf' },
-      { name: 'Grafite lilás', hex: '#6e6190' },
-    ],
-    sizes: ['36', '38', '40', '42', '44'],
+    id: 9,
+    slug: 'moletom-careta',
+    name: 'Moletom Careta',
+    category: 'moletons',
+    type: 'hoodie',
+    price: 229.9,
+    colors: [cor.pessego, cor.offWhite],
+    sizes: TAM_ROUPA,
     tags: [],
     description:
-      'Sarja com elastano, bolsos laterais de verdade e cordão ajustável na barra. Aguenta o dia inteiro de rolê e ainda sobra estilo.',
+      'Nosso moletom mais pesado, com caretas bordadas nas mangas. Pra quem faz careta pra regra de moda.',
   },
   {
-    id: 4,
-    slug: 'bone-menino-mau',
-    name: 'Boné Menino Mau',
-    category: 'acessorios',
-    type: 'cap',
-    price: 79.9,
-    colors: [
-      { name: 'Pêssego', hex: '#ffc596' },
-      { name: 'Lavanda', hex: '#c8b3f0' },
-    ],
-    sizes: ['Único'],
-    tags: ['drop'],
+    id: 10,
+    slug: 'sueter-trico-aconchego',
+    name: 'Suéter Tricô Aconchego',
+    category: 'moletons',
+    type: 'sweater',
+    price: 199.9,
+    colors: [cor.areia, cor.lavanda],
+    sizes: TAM_ROUPA,
+    tags: [],
     description:
-      'Aba curva, fecho regulável e o mascote bordado na frente. O acessório oficial de quem tem cara de santo, mas não é.',
+      'Tricô de algodão com gola careca e punhos canelados. Abraço em forma de roupa pros dias nublados.',
   },
+
+  // ---------- Jaquetas ----------
   {
-    id: 5,
+    id: 11,
     slug: 'jaqueta-corta-vento-atitude',
     name: 'Jaqueta Corta-Vento Atitude',
     category: 'jaquetas',
     type: 'jacket',
     price: 259.9,
     oldPrice: 299.9,
-    colors: [
-      { name: 'Lilás', hex: '#d3c1f5' },
-      { name: 'Tangerina clara', hex: '#ffb989' },
-    ],
-    sizes: ['P', 'M', 'G', 'GG'],
-    tags: ['novo'],
-    description:
-      'Nylon leve, repelente à água, forro em tela e zíper frontal. Dobra e cabe na mochila — a atitude vai com você pra qualquer lugar.',
-  },
-  {
-    id: 6,
-    slug: 'vestido-midi-autentica',
-    name: 'Vestido Midi Autêntica',
-    category: 'vestidos',
-    type: 'dress',
-    price: 199.9,
-    colors: [
-      { name: 'Lavanda', hex: '#c8b3f0' },
-      { name: 'Coral claro', hex: '#ffb8a0' },
-    ],
-    sizes: ['P', 'M', 'G'],
-    tags: ['novo'],
-    description:
-      'Viscose fluida, alcinhas reguláveis e fenda lateral discreta. Leve pra dançar, confortável pra ficar o dia todo.',
-  },
-  {
-    id: 7,
-    slug: 'camiseta-sem-pedir-licenca',
-    name: 'Camiseta Sem Pedir Licença',
-    category: 'camisetas',
-    type: 'tee',
-    price: 79.9,
-    colors: [
-      { name: 'Off-white', hex: '#fbf6ee' },
-      { name: 'Roxo claro', hex: '#b7a0ea' },
-    ],
-    sizes: ['P', 'M', 'G', 'GG'],
+    colors: [cor.lilas, cor.laranja],
+    sizes: TAM_ROUPA,
     tags: [],
     description:
-      'Básica? Nunca. Malha fio 30, gola canelada e a frase que resume a marca nas costas. Combina com tudo — principalmente com atitude.',
+      'Nylon leve, repelente à água, forro em tela e zíper frontal. Dobra e cabe na mochila — a atitude vai com você.',
   },
   {
-    id: 8,
-    slug: 'shorts-moletom-preguica',
-    name: 'Shorts Moletom Preguiça',
-    category: 'calcas-shorts',
-    type: 'shorts',
-    price: 119.9,
-    colors: [
-      { name: 'Pêssego', hex: '#ffc596' },
-      { name: 'Lilás', hex: '#d3c1f5' },
-    ],
-    sizes: ['P', 'M', 'G', 'GG'],
-    tags: [],
-    description:
-      'Moletom leve, cós de elástico com cordão e bolsos fundos. Feito pro domingo, mas ninguém vai te julgar se usar na segunda.',
-  },
-  {
-    id: 9,
-    slug: 'camisa-botao-vibe',
-    name: 'Camisa de Botão Vibe',
-    category: 'camisetas',
-    type: 'shirt',
-    price: 159.9,
-    colors: [
-      { name: 'Lavanda', hex: '#c8b3f0' },
-      { name: 'Areia', hex: '#f0dcc4' },
-    ],
-    sizes: ['P', 'M', 'G', 'GG'],
-    tags: ['drop'],
-    description:
-      'Linho misto, caimento solto e botões de coco. Aberta por cima da camiseta ou fechada pro jantar — você escolhe a vibe.',
-  },
-  {
-    id: 10,
-    slug: 'moletom-careta',
-    name: 'Moletom Careta',
-    category: 'moletons',
-    type: 'hoodie',
-    price: 229.9,
-    colors: [
-      { name: 'Pêssego', hex: '#ffc596' },
-      { name: 'Off-white', hex: '#fbf6ee' },
-    ],
-    sizes: ['P', 'M', 'G', 'GG'],
-    tags: [],
-    description:
-      'Nosso moletom mais pesado, com estampa de caretas bordadas nas mangas. Pra quem faz careta pra regra de moda.',
-  },
-  {
-    id: 11,
+    id: 12,
     slug: 'jaqueta-jeans-cacheada',
     name: 'Jaqueta Jeans Cacheada',
     category: 'jaquetas',
     type: 'jacket',
     price: 279.9,
-    colors: [
-      { name: 'Jeans lavado', hex: '#a9b8e0' },
-      { name: 'Lilás', hex: '#d3c1f5' },
-    ],
-    sizes: ['P', 'M', 'G', 'GG'],
+    colors: [cor.jeans, cor.lilas],
+    sizes: TAM_ROUPA,
     tags: [],
     description:
-      'Jeans com lavagem clara, botões metálicos e patch do mascote nas costas. Uma peça pra usar por anos e ficar cada vez mais sua.',
+      'Jeans com lavagem clara, botões metálicos e patch do mascote nas costas. Uma peça pra usar por anos.',
+  },
+
+  // ---------- Calças & Bermudas ----------
+  {
+    id: 13,
+    slug: 'calca-cargo-role',
+    name: 'Calça Cargo Rolê',
+    category: 'calcas-bermudas',
+    type: 'pants',
+    price: 179.9,
+    colors: [cor.areia, cor.grafite],
+    sizes: TAM_CALCA,
+    tags: [],
+    description:
+      'Sarja com elastano, bolsos laterais de verdade e cordão ajustável na barra. Aguenta o dia inteiro de rolê.',
   },
   {
-    id: 12,
-    slug: 'vestido-camiseta-rebelde',
-    name: 'Vestido Camiseta Rebelde',
-    category: 'vestidos',
-    type: 'dress',
-    price: 149.9,
-    colors: [
-      { name: 'Pêssego', hex: '#ffc596' },
-      { name: 'Off-white', hex: '#fbf6ee' },
-    ],
-    sizes: ['P', 'M', 'G'],
-    tags: ['drop'],
+    id: 14,
+    slug: 'calca-jogger-domingo',
+    name: 'Calça Jogger Domingo',
+    category: 'calcas-bermudas',
+    type: 'jogger',
+    price: 159.9,
+    colors: [cor.grafite, cor.lavanda],
+    sizes: TAM_ROUPA,
+    tags: ['novo'],
     description:
-      'O conforto de uma camiseta com a presença de um vestido. Algodão macio, comprimento na altura do joelho e zero esforço.',
+      'Moletom leve, punho na barra e cós com cordão. Confortável como pijama, apresentável como calça.',
+  },
+  {
+    id: 15,
+    slug: 'bermuda-sarja-solta',
+    name: 'Bermuda de Sarja Solta',
+    category: 'calcas-bermudas',
+    type: 'shorts',
+    price: 129.9,
+    colors: [cor.areia, cor.azulCeu],
+    sizes: TAM_CALCA,
+    tags: [],
+    description:
+      'Sarja leve, comprimento acima do joelho e barra dobrável. A bermuda coringa do verão inteiro.',
+  },
+  {
+    id: 16,
+    slug: 'shorts-moletom-preguica',
+    name: 'Shorts Moletom Preguiça',
+    category: 'calcas-bermudas',
+    type: 'shorts',
+    price: 119.9,
+    colors: [cor.pessego, cor.lilas],
+    sizes: TAM_ROUPA,
+    tags: [],
+    description:
+      'Moletom leve, cós de elástico com cordão e bolsos fundos. Feito pro domingo, mas ninguém vai te julgar na segunda.',
+  },
+
+  // ---------- Underwear ----------
+  {
+    id: 17,
+    slug: 'kit-3-cuecas-boxer-maroto',
+    name: 'Kit 3 Cuecas Boxer Maroto',
+    category: 'underwear',
+    type: 'boxer',
+    price: 99.9,
+    oldPrice: 119.7,
+    colors: [cor.lavanda, cor.pessego, cor.grafite],
+    sizes: TAM_ROUPA,
+    tags: ['novo'],
+    description:
+      'Três boxers de algodão com elastano, cós largo com o logo MM e costura sem atrito. Conforto do começo ao fim do dia.',
+  },
+  {
+    id: 18,
+    slug: 'cueca-boxer-cacheada',
+    name: 'Cueca Boxer Cacheada',
+    category: 'underwear',
+    type: 'boxer',
+    price: 39.9,
+    colors: [cor.roxoClaro, cor.azulCeu],
+    sizes: TAM_ROUPA,
+    tags: [],
+    description: 'Microfibra respirável, secagem rápida e cós macio que não marca. Ideal pra dias corridos.',
+  },
+  {
+    id: 19,
+    slug: 'samba-cancao-bolinhas',
+    name: 'Samba-Canção Bolinhas',
+    category: 'underwear',
+    type: 'samba',
+    price: 59.9,
+    colors: [cor.lilas, cor.pessego],
+    sizes: TAM_ROUPA,
+    tags: [],
+    description:
+      'Tricoline de algodão com estampa de bolinhas, elástico coberto e botão frontal. Clássico do vovô com atitude de neto.',
+  },
+  {
+    id: 20,
+    slug: 'kit-3-meias-sorriso',
+    name: 'Kit 3 Meias Sorriso',
+    category: 'underwear',
+    type: 'socks',
+    price: 49.9,
+    colors: [cor.pessego, cor.lavanda, cor.offWhite],
+    sizes: TAM_MEIA,
+    tags: ['novo'],
+    description:
+      'Meias cano médio com listras e o sorrisinho do mascote no tornozelo. Algodão penteado com reforço no calcanhar.',
+  },
+
+  // ---------- Training ----------
+  {
+    id: 21,
+    slug: 'camiseta-dry-fit-treino-pesado',
+    name: 'Camiseta Dry-Fit Treino Pesado',
+    category: 'training',
+    type: 'dryfit',
+    price: 99.9,
+    colors: [cor.roxoClaro, cor.verdeMenta],
+    sizes: TAM_ROUPA,
+    tags: ['novo'],
+    description:
+      'Tecido tecnológico que seca rápido, painéis laterais em tela e proteção UV 50+. Pro treino de verdade.',
+  },
+  {
+    id: 22,
+    slug: 'regata-treino-sem-desculpa',
+    name: 'Regata Treino Sem Desculpa',
+    category: 'training',
+    type: 'tank',
+    price: 79.9,
+    colors: [cor.grafite, cor.laranja],
+    sizes: TAM_ROUPA,
+    tags: [],
+    description:
+      'Regata cavada em poliamida leve, costuras planas e barra alongada. Liberdade total no dia de braço.',
+  },
+  {
+    id: 23,
+    slug: 'bermuda-treino-leve',
+    name: 'Bermuda de Treino Leve',
+    category: 'training',
+    type: 'shorts',
+    price: 109.9,
+    colors: [cor.grafite, cor.azulCeu],
+    sizes: TAM_ROUPA,
+    tags: [],
+    description:
+      'Tecido com elastano em 4 direções, forro interno e bolso com zíper pro celular. Do agachamento à corrida.',
+  },
+  {
+    id: 24,
+    slug: 'calca-jogger-treino',
+    name: 'Calça Jogger Treino',
+    category: 'training',
+    type: 'jogger',
+    price: 169.9,
+    colors: [cor.roxoClaro, cor.grafite],
+    sizes: TAM_ROUPA,
+    tags: [],
+    description:
+      'Tecido leve e respirável, punhos com ajuste e bolsos com zíper. Aquece antes do treino e segura o frio depois.',
+  },
+  {
+    id: 25,
+    slug: 'meia-cano-alto-treino',
+    name: 'Meia Cano Alto Treino',
+    category: 'training',
+    type: 'socks',
+    price: 29.9,
+    colors: [cor.offWhite, cor.grafite],
+    sizes: TAM_MEIA,
+    tags: [],
+    description: 'Cano alto com compressão leve, planta acolchoada e fio antiodor. Seu pé agradece no fim do treino.',
+  },
+
+  // ---------- Acessórios ----------
+  {
+    id: 26,
+    slug: 'bone-menino-mau',
+    name: 'Boné Menino Mau',
+    category: 'acessorios',
+    type: 'cap',
+    price: 79.9,
+    colors: [cor.pessego, cor.lavanda],
+    sizes: TAM_UNICO,
+    tags: [],
+    description: 'Aba curva, fecho regulável e o mascote bordado na frente. O acessório oficial de quem tem cara de santo, mas não é.',
+  },
+  {
+    id: 27,
+    slug: 'gorro-cacheado',
+    name: 'Gorro Cacheado',
+    category: 'acessorios',
+    type: 'beanie',
+    price: 69.9,
+    colors: [cor.lavanda, cor.laranja, cor.grafite],
+    sizes: TAM_UNICO,
+    tags: ['novo'],
+    description: 'Tricô canelado com barra dobrada e pompom. Esconde o cabelo bagunçado, mas não a personalidade.',
+  },
+  {
+    id: 28,
+    slug: 'bucket-hat-maroto',
+    name: 'Bucket Hat Maroto',
+    category: 'acessorios',
+    type: 'bucket',
+    price: 89.9,
+    colors: [cor.pessego, cor.lilas],
+    sizes: TAM_UNICO,
+    tags: [],
+    description: 'Sarja de algodão, aba curta e costura pespontada. O chapéu de quem vai pro festival e volta com história.',
+  },
+  {
+    id: 29,
+    slug: 'pochete-role',
+    name: 'Pochete Rolê',
+    category: 'acessorios',
+    type: 'pochete',
+    price: 119.9,
+    colors: [cor.roxoClaro, cor.laranja],
+    sizes: TAM_UNICO,
+    tags: [],
+    description: 'Nylon resistente, dois compartimentos e alça regulável. Use na cintura ou atravessada no peito.',
+  },
+  {
+    id: 30,
+    slug: 'mochila-campus',
+    name: 'Mochila Campus',
+    category: 'acessorios',
+    type: 'backpack',
+    price: 199.9,
+    colors: [cor.lavanda, cor.grafite],
+    sizes: TAM_UNICO,
+    tags: ['novo'],
+    description: 'Compartimento acolchoado pra notebook de até 15", bolso frontal e alças ergonômicas. Nascida na faculdade, igual a marca.',
+  },
+  {
+    id: 31,
+    slug: 'oculos-sol-sem-filtro',
+    name: 'Óculos de Sol Sem Filtro',
+    category: 'acessorios',
+    type: 'sunglasses',
+    price: 149.9,
+    colors: [cor.laranja, cor.lavanda],
+    sizes: TAM_UNICO,
+    tags: [],
+    description: 'Armação em acetato colorido e lentes com proteção UV400. O nome é piada: filtro solar ele tem, e muito.',
+  },
+  {
+    id: 32,
+    slug: 'carteira-slim-mm',
+    name: 'Carteira Slim MM',
+    category: 'acessorios',
+    type: 'wallet',
+    price: 69.9,
+    colors: [cor.grafite, cor.pessego],
+    sizes: TAM_UNICO,
+    tags: [],
+    description: 'Couro sintético, seis divisórias pra cartões e bolso pra notas. Fininha pra caber no bolso da frente.',
   },
 ]
 
+// Busca um produto pelo "slug" usado na URL (/produto/:slug)
 export function getProductBySlug(slug) {
   return products.find((p) => p.slug === slug)
 }
 
+// Converte o id da categoria no nome exibido (ex.: 'underwear' -> 'Underwear')
 export function getCategoryName(id) {
   return categories.find((c) => c.id === id)?.name ?? id
 }

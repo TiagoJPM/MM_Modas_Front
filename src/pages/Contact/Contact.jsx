@@ -1,32 +1,47 @@
+// =========================================================
+// Contact — página de contato (/contato)
+// ---------------------------------------------------------
+// - Formulário de contato com validação.
+// - Canais alternativos (WhatsApp, Instagram).
+// - Perguntas frequentes (FAQ). Os links "Ajuda" do rodapé
+//   apontam para cá com uma âncora, ex.: /contato#faq-trocas.
+//   A pergunta correspondente abre sozinha e fica destacada.
+// =========================================================
 import { useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import Mascot from '../../components/Logo/Mascot.jsx'
 import { InstagramIcon, WhatsIcon } from '../../components/Icons.jsx'
+import { faq } from '../../data/faq.js'
+import { isEmail } from '../../utils/validators.js'
 import './Contact.css'
 
+// Opções do campo "Assunto"
 const subjects = ['Dúvida sobre produto', 'Meu pedido', 'Trocas e devoluções', 'Parcerias', 'Outro assunto']
 
-const faq = [
-  { q: 'Qual o prazo de entrega?', a: 'De 3 a 8 dias úteis, dependendo da sua região. Você recebe o código de rastreio por e-mail.' },
-  { q: 'Como faço uma troca?', a: 'Chama a gente em até 30 dias depois de receber. A primeira troca é por nossa conta.' },
-  { q: 'Como escolho o tamanho?', a: 'Nossas peças têm modelagem mais solta. Na dúvida entre dois tamanhos, vai no menor.' },
-]
+const emptyForm = { nome: '', email: '', assunto: subjects[0], mensagem: '' }
 
 function Contact() {
-  const [form, setForm] = useState({ nome: '', email: '', assunto: subjects[0], mensagem: '' })
+  const [form, setForm] = useState(emptyForm)
   const [errors, setErrors] = useState({})
   const [sent, setSent] = useState(false)
 
+  // Âncora da URL: "#faq-trocas" -> "trocas" (qual pergunta abrir)
+  const { hash } = useLocation()
+  const targetFaq = hash.startsWith('#faq-') ? hash.replace('#faq-', '') : null
+
+  // Atualiza o campo digitado e limpa o erro dele
   const handleChange = (e) => {
     const { name, value } = e.target
     setForm((f) => ({ ...f, [name]: value }))
     setErrors((err) => ({ ...err, [name]: undefined }))
   }
 
+  // Valida e "envia" (projeto sem back-end: só mostra a confirmação)
   const handleSubmit = (e) => {
     e.preventDefault()
     const err = {}
     if (!form.nome.trim()) err.nome = 'Como a gente te chama?'
-    if (!/^\S+@\S+\.\S+$/.test(form.email)) err.email = 'Coloca um e-mail válido.'
+    if (!isEmail(form.email)) err.email = 'Coloca um e-mail válido.'
     if (form.mensagem.trim().length < 10) err.mensagem = 'Escreve um pouquinho mais (mín. 10 caracteres).'
     setErrors(err)
     if (Object.keys(err).length === 0) setSent(true)
@@ -41,18 +56,22 @@ function Contact() {
       </header>
 
       <div className="contact">
+        {/* ---------- Formulário ---------- */}
         <div className="contact__card">
           {sent ? (
+            // Mensagem de sucesso depois do envio
             <div className="contact__sent">
               <Mascot size={110} title="" />
               <h2>Mensagem enviada!</h2>
-              <p className="muted">Valeu, {form.nome.split(' ')[0]}. Logo a gente te responde no {form.email}.</p>
+              <p className="muted">
+                Valeu, {form.nome.split(' ')[0]}. Logo a gente te responde no {form.email}.
+              </p>
               <button
                 type="button"
                 className="btn btn--accent"
                 onClick={() => {
                   setSent(false)
-                  setForm({ nome: '', email: '', assunto: subjects[0], mensagem: '' })
+                  setForm(emptyForm)
                 }}
               >
                 Enviar outra
@@ -115,6 +134,7 @@ function Contact() {
           )}
         </div>
 
+        {/* ---------- Lateral: canais + FAQ ---------- */}
         <aside className="contact__side">
           <div className="contact__channels">
             <h2>Outros canais</h2>
@@ -126,10 +146,18 @@ function Contact() {
             </a>
           </div>
 
-          <div className="faq">
+          {/* id="faq" é o destino do link "Perguntas frequentes" do rodapé */}
+          <div className="faq" id="faq">
             <h2>Perguntas frequentes</h2>
             {faq.map((item) => (
-              <details key={item.q} className="faq__item">
+              // <details> abre/fecha sozinho. A key muda com a âncora para
+              // reabrir a pergunta certa quando o usuário clica em outro link do rodapé.
+              <details
+                key={`${item.id}-${hash}`}
+                id={`faq-${item.id}`}
+                className={`faq__item ${targetFaq === item.id ? 'faq__item--target' : ''}`}
+                open={targetFaq === item.id}
+              >
                 <summary>{item.q}</summary>
                 <p>{item.a}</p>
               </details>

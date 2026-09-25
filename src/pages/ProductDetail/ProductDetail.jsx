@@ -1,3 +1,11 @@
+// =========================================================
+// ProductDetail — página de um produto (/produto/:slug)
+// ---------------------------------------------------------
+// Lê o :slug da URL, encontra o produto e mostra: ilustração
+// (muda com a cor escolhida), preço, descrição, seletor de
+// cor, tamanho e quantidade, botão de adicionar ao carrinho
+// e sugestões da mesma categoria ("Combina com").
+// =========================================================
 import { useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import ProductArt from '../../components/ProductArt/ProductArt.jsx'
@@ -11,25 +19,32 @@ import '../../components/ProductCard/ProductCard.css'
 import './ProductDetail.css'
 
 function ProductDetail() {
+  // Pega o parâmetro :slug da URL
   const { slug } = useParams()
   const product = getProductBySlug(slug)
 
+  // Slug inexistente -> página 404
   if (!product) return <NotFound />
 
   // A "key" reinicia os estados (cor, tamanho...) ao navegar entre produtos
   return <ProductView key={slug} product={product} />
 }
 
+// Conteúdo da página (separado para poder "resetar" com a key)
 function ProductView({ product }) {
   const { addItem } = useCart()
-  const [color, setColor] = useState(product.colors[0])
+  const [color, setColor] = useState(product.colors[0]) // cor escolhida
+  // Tamanho escolhido (se só existir "Único", já vem selecionado)
   const [size, setSize] = useState(product.sizes.length === 1 ? product.sizes[0] : null)
-  const [qty, setQty] = useState(1)
-  const [sizeError, setSizeError] = useState(false)
+  const [qty, setQty] = useState(1) // quantidade
+  const [sizeError, setSizeError] = useState(false) // clicou em comprar sem tamanho?
+
+  // Sugestões: mesma categoria; se não houver, quaisquer outros produtos
 
   const related = products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4)
   const fallback = products.filter((p) => p.id !== product.id).slice(0, 4)
 
+  // Adiciona ao carrinho (exige tamanho escolhido)
   const handleAdd = () => {
     if (!size) {
       setSizeError(true)
@@ -50,6 +65,7 @@ function ProductView({ product }) {
 
   return (
     <div className="container">
+      {/* Trilha de navegação: Início / Loja / Categoria / Produto */}
       <nav className="breadcrumb" aria-label="Você está em">
         <Link to="/">Início</Link> / <Link to="/loja">Loja</Link> /{' '}
         <Link to={`/loja?categoria=${product.category}`}>{getCategoryName(product.category)}</Link> /{' '}
@@ -57,6 +73,7 @@ function ProductView({ product }) {
       </nav>
 
       <section className="pdp">
+        {/* ---- Galeria: imagem grande + miniaturas por cor ---- */}
         <div className="pdp__gallery">
           <ProductArt
             type={product.type}
@@ -80,13 +97,14 @@ function ProductView({ product }) {
           </div>
         </div>
 
+        {/* ---- Informações e compra ---- */}
         <div className="pdp__info">
           <div className="pdp__tags">
-            {product.tags.includes('novo') && <span className="tag">Novo</span>}
-            {product.tags.includes('drop') && <span className="tag tag--roxo">Drop da semana</span>}
+            {product.tags.includes('novo') && <span className="tag">Novidade</span>}
           </div>
           <h1 className="pdp__name">{product.name}</h1>
 
+          {/* Preço atual, preço antigo riscado e parcelamento */}
           <div className="pdp__price">
             <strong>{formatPrice(product.price)}</strong>
             {product.oldPrice && <s>{formatPrice(product.oldPrice)}</s>}
@@ -95,7 +113,7 @@ function ProductView({ product }) {
 
           <p className="pdp__desc">{product.description}</p>
 
-          {/* Cor */}
+          {/* Cor: cada bolinha troca a cor da ilustração */}
           <fieldset className="pdp__group">
             <legend>
               Cor: <strong>{color.name}</strong>
@@ -115,7 +133,7 @@ function ProductView({ product }) {
             </div>
           </fieldset>
 
-          {/* Tamanho */}
+          {/* Tamanho: obrigatório antes de adicionar ao carrinho */}
           <fieldset className="pdp__group">
             <legend>
               Tamanho{size && <>: <strong>{size}</strong></>}
@@ -139,7 +157,7 @@ function ProductView({ product }) {
             {sizeError && <p className="field-error">Escolhe um tamanho primeiro, vai!</p>}
           </fieldset>
 
-          {/* Quantidade + comprar */}
+          {/* Quantidade (mínimo 1) + botão de comprar */}
           <div className="pdp__buy">
             <div className="qty" aria-label="Quantidade">
               <button type="button" onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label="Diminuir">
@@ -155,6 +173,7 @@ function ProductView({ product }) {
             </button>
           </div>
 
+          {/* Vantagens */}
           <ul className="pdp__perks">
             <li>
               <TruckIcon size={20} /> Frete grátis acima de R$ 299
@@ -166,6 +185,7 @@ function ProductView({ product }) {
         </div>
       </section>
 
+      {/* ---- Sugestões da mesma categoria ---- */}
       <section className="section">
         <h2 className="section-title">Combina com</h2>
         <div className="product-grid">

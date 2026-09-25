@@ -1,17 +1,28 @@
+// =========================================================
+// CartContext — estado global do carrinho
+// ---------------------------------------------------------
+// Qualquer componente pode ler/alterar o carrinho com useCart().
+// Os itens ficam salvos no localStorage para não sumirem ao
+// recarregar a página. Também controla o "toast" (aviso flutuante).
+// =========================================================
 import { createContext, useContext, useEffect, useReducer, useState, useCallback } from 'react'
 import { FRETE_GRATIS_A_PARTIR, VALOR_FRETE, CUPONS } from './cartConfig.js'
 
 const CartContext = createContext(null)
 
+// Chave usada no localStorage do navegador
 const STORAGE_KEY = 'mm-modas:carrinho'
 
-// Cada item do carrinho é identificado por produto + cor + tamanho
+// Cada item do carrinho é identificado por produto + cor + tamanho.
+// Assim, a mesma camiseta em tamanhos diferentes vira duas linhas.
 function itemKey({ id, color, size }) {
   return `${id}-${color}-${size}`
 }
 
+// Reducer: recebe o estado atual + uma ação e devolve o novo estado
 function cartReducer(state, action) {
   switch (action.type) {
+    // Adiciona um item; se já existir, só soma a quantidade
     case 'ADD': {
       const key = itemKey(action.item)
       const existing = state.find((i) => i.key === key)
@@ -20,12 +31,15 @@ function cartReducer(state, action) {
       }
       return [...state, { ...action.item, key }]
     }
+    // Altera a quantidade; se chegar a 0, o item sai do carrinho
     case 'UPDATE_QTY':
       return state
         .map((i) => (i.key === action.key ? { ...i, qty: action.qty } : i))
         .filter((i) => i.qty > 0)
+    // Remove um item específico
     case 'REMOVE':
       return state.filter((i) => i.key !== action.key)
+    // Esvazia o carrinho (usado depois de finalizar a compra)
     case 'CLEAR':
       return []
     default:
@@ -33,6 +47,7 @@ function cartReducer(state, action) {
   }
 }
 
+// Lê o carrinho salvo; se não houver (ou der erro), começa vazio
 function loadCart() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY)
@@ -47,6 +62,7 @@ export function CartProvider({ children }) {
   const [toast, setToast] = useState(null)
   const [coupon, setCoupon] = useState(null)
 
+  // Sempre que os itens mudam, salva no localStorage
   useEffect(() => {
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(items))
@@ -55,13 +71,17 @@ export function CartProvider({ children }) {
     }
   }, [items])
 
-  const showToast = useCallback((message) => {
-    setToast({ message, id: Date.now() })
+  // Mostra um aviso flutuante. "link" é opcional: { to, label }
+  const showToast = useCallback((message, link = null) => {
+    setToast({ message, link, id: Date.now() })
   }, [])
 
+  const dismissToast = useCallback(() => setToast(null), [])
+
+  // ----- Ações expostas para os componentes -----
   const addItem = (item) => {
     dispatch({ type: 'ADD', item })
-    showToast(`${item.name} foi pro carrinho!`)
+    showToast(`${item.name} foi pro carrinho!`, { to: '/carrinho', label: 'Ver carrinho →' })
   }
   const updateQty = (key, qty) => dispatch({ type: 'UPDATE_QTY', key, qty })
   const removeItem = (key) => dispatch({ type: 'REMOVE', key })
@@ -70,6 +90,7 @@ export function CartProvider({ children }) {
     setCoupon(null)
   }
 
+  // Aplica um cupom se ele existir em CUPONS (maiúsculas/minúsculas tanto faz)
   const applyCoupon = (code) => {
     const normalized = code.trim().toUpperCase()
     if (CUPONS[normalized]) {
@@ -79,6 +100,7 @@ export function CartProvider({ children }) {
     return false
   }
 
+  // ----- Valores calculados a cada renderização -----
   const count = items.reduce((sum, i) => sum + i.qty, 0)
   const subtotal = items.reduce((sum, i) => sum + i.price * i.qty, 0)
   const discount = coupon ? subtotal * coupon.rate : 0
@@ -101,12 +123,13 @@ export function CartProvider({ children }) {
     removeCoupon: () => setCoupon(null),
     toast,
     showToast,
-    dismissToast: () => setToast(null),
+    dismissToast,
   }
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
 
+// Hook de acesso ao carrinho: const { items, addItem } = useCart()
 // eslint-disable-next-line react-refresh/only-export-components
 export function useCart() {
   const ctx = useContext(CartContext)

@@ -1,3 +1,7 @@
+// =========================================================
+// NotFound — página 404 (qualquer URL que não existe)
+// O mascote faz o papel do "0" em "404".
+// =========================================================
 import { Link } from 'react-router-dom'
 import Mascot from '../../components/Logo/Mascot.jsx'
 import './NotFound.css'

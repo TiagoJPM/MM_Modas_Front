@@ -1,6 +1,10 @@
 /* =========================================================
    MM MODAS — Tokens e estilos globais
    Paleta: laranja claro + roxo claro, com tinta roxa escura
+   ---------------------------------------------------------
+   Todas as cores, espaçamentos e raios ficam em :root como
+   variáveis CSS. Para mudar a identidade do site inteiro,
+   basta alterar os valores aqui.
    ========================================================= */
 
 :root {
@@ -57,6 +61,9 @@
   --header-h: 76px;
 }
 
+/* ---------- Reset básico ---------- */
+
+/* border-box: padding e borda entram na largura declarada */
 *,
 *::before,
 *::after {
@@ -77,6 +84,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Layout em coluna: header, conteúdo (cresce) e footer sempre no fim */
 #root {
   min-height: 100vh;
   overflow-x: clip;
@@ -120,6 +128,7 @@ textarea {
   color: inherit;
 }
 
+/* Contorno visível ao navegar pelo teclado (acessibilidade) */
 :focus-visible {
   outline: 3px solid var(--roxo-500);
   outline-offset: 3px;
@@ -159,6 +168,7 @@ textarea {
   color: var(--ink-soft);
 }
 
+/* Esconde visualmente, mas mantém para leitores de tela */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -170,7 +180,8 @@ textarea {
   border: 0;
 }
 
-/* ---------- Botões ---------- */
+/* ---------- Botões ----------
+   .btn + variação: --primary (roxo), --accent (laranja), --ghost (transparente) */
 
 .btn {
   display: inline-flex;
@@ -302,6 +313,7 @@ textarea {
   }
 }
 
+/* Respeita quem prefere menos animação (config. do sistema) */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
