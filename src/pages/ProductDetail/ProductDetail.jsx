@@ -11,7 +11,7 @@ import { Link, useParams } from 'react-router-dom'
 import ProductArt from '../../components/ProductArt/ProductArt.jsx'
 import ProductCard from '../../components/ProductCard/ProductCard.jsx'
 import { TruckIcon, RefreshIcon } from '../../components/Icons.jsx'
-import { getProductBySlug, getCategoryName, products } from '../../data/products.js'
+import { getProductBySlug, getCategoryName, getProductImage, products } from '../../data/products.js'
 import { useCart } from '../../context/CartContext.jsx'
 import { formatPrice, installments } from '../../utils/format.js'
 import NotFound from '../NotFound/NotFound.jsx'
@@ -58,6 +58,7 @@ function ProductView({ product }) {
       price: product.price,
       color: color.name,
       colorHex: color.hex,
+      image: getProductImage(product, color.name),
       size,
       qty,
     })
@@ -80,6 +81,7 @@ function ProductView({ product }) {
             color={color.hex}
             bg="var(--roxo-100)"
             className="pdp__art"
+            image={getProductImage(product, color.name)}
             label={`${product.name} na cor ${color.name}`}
           />
           <div className="pdp__thumbs">
@@ -91,7 +93,12 @@ function ProductView({ product }) {
                 onClick={() => setColor(c)}
                 aria-label={`Ver na cor ${c.name}`}
               >
-                <ProductArt type={product.type} color={c.hex} bg="var(--laranja-100)" />
+                <ProductArt
+                  type={product.type}
+                  color={c.hex}
+                  bg="var(--laranja-100)"
+                  image={getProductImage(product, c.name)}
+                />
               </button>
             ))}
           </div>

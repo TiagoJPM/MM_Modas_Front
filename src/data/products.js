@@ -7,6 +7,7 @@
 //   componente ProductArt desenha (tee, shirt, boxer, beanie...).
 // - tags: ['novo'] faz o produto aparecer em "Novidades" na Home.
 // - oldPrice (opcional): preço antigo, usado para mostrar o desconto.
+// - image / images (opcional): foto real da peça (ver getProductImage no fim).
 // =========================================================
 
 // Paleta de cores reaproveitada nos produtos (evita repetir hex)
@@ -477,4 +478,13 @@ export function getProductBySlug(slug) {
 // Converte o id da categoria no nome exibido (ex.: 'underwear' -> 'Underwear')
 export function getCategoryName(id) {
   return categories.find((c) => c.id === id)?.name ?? id
+}
+
+// Foto da peça (opcional). Coloque os arquivos em public/produtos/ e
+// preencha no produto:
+//   image: '/produtos/camiseta.jpg'                     -> uma foto para todas as cores
+//   images: { Lavanda: '/produtos/camiseta-lavanda.jpg' } -> uma foto por cor (pelo nome)
+// Sem foto, o site continua mostrando o desenho em SVG.
+export function getProductImage(product, colorName) {
+  return product.images?.[colorName] ?? product.image
 }

@@ -3,8 +3,10 @@
 // ---------------------------------------------------------
 // Enquanto o grupo não tem fotos reais, cada produto é desenhado
 // em SVG. O "type" do produto escolhe o desenho e "color" pinta a peça.
-// Para usar fotos, basta trocar <ProductArt /> por <img />.
+// Se a prop "image" for passada, mostra a foto no lugar do desenho
+// (e volta para o desenho se a foto não carregar).
 // =========================================================
+import { useState } from 'react'
 import './ProductArt.css'
 
 // Cor do contorno (mesmo roxo escuro do texto do site)
@@ -305,9 +307,26 @@ const shapes = {
 // - color: cor principal da peça
 // - bg: cor de fundo do quadro (opcional)
 // - label: texto alternativo para leitores de tela (opcional)
-function ProductArt({ type = 'tee', color = '#c8b3f0', bg, className = '', label }) {
+// - image: caminho da foto da peça (opcional, ex.: '/produtos/camiseta.jpg')
+function ProductArt({ type = 'tee', color = '#c8b3f0', bg, className = '', label, image }) {
+  // Guarda a foto que falhou ao carregar, para cair no desenho
+  const [failedImage, setFailedImage] = useState(null)
   // Se o tipo não existir, desenha uma camiseta
   const draw = shapes[type] ?? shapes.tee
+
+  if (image && image !== failedImage) {
+    return (
+      <div className={`product-art product-art--photo ${className}`} style={bg ? { background: bg } : undefined}>
+        <img
+          src={image}
+          alt={label ?? ''}
+          className="product-art__img"
+          loading="lazy"
+          onError={() => setFailedImage(image)}
+        />
+      </div>
+    )
+  }
 
   return (
     <div className={`product-art ${className}`} style={bg ? { background: bg } : undefined}>

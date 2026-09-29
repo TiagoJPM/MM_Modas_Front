@@ -7,6 +7,7 @@
 // =========================================================
 import { Link } from 'react-router-dom'
 import ProductArt from '../ProductArt/ProductArt.jsx'
+import { getProductImage } from '../../data/products.js'
 import { formatPrice } from '../../utils/format.js'
 import './ProductCard.css'
 
@@ -25,7 +26,13 @@ function ProductCard({ product }) {
       <Link to={`/produto/${product.slug}`} className="product-card__link">
         {/* Imagem + etiquetas */}
         <div className="product-card__media">
-          <ProductArt type={product.type} color={product.colors[0].hex} bg={bg} />
+          <ProductArt
+            type={product.type}
+            color={product.colors[0].hex}
+            bg={bg}
+            image={getProductImage(product, product.colors[0].name)}
+            label={product.name}
+          />
           <div className="product-card__tags">
             {isNew && <span className="tag">Novo</span>}
             {discount > 0 && <span className="tag tag--roxo">-{discount}%</span>}

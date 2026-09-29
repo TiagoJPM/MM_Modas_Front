@@ -29,6 +29,19 @@
   transition: transform 0.35s ease;
 }
 
+/* Foto real da peça: preenche o quadro inteiro, sem textura de fundo */
+.product-art--photo::before {
+  display: none;
+}
+
+.product-art__img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
 /* Estampa "MM" desenhada nas camisetas, regatas e acessórios */
 .art-print {
   font-family: var(--font-display);
