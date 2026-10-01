@@ -55,6 +55,13 @@ export const CloseIcon = (p) => (
   </Icon>
 )
 
+// Seta para a esquerda (botão "Voltar")
+export const BackIcon = (p) => (
+  <Icon {...p}>
+    <path d="M19 12H5M11 6l-6 6 6 6" />
+  </Icon>
+)
+
 // Seta para a direita (links "ver mais")
 export const ArrowIcon = (p) => (
   <Icon {...p}>

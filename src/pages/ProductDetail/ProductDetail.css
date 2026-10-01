@@ -2,9 +2,21 @@
    Página do produto (/produto/:slug)
    ========================================================= */
 
+/* Botão "Voltar" (pílula do site, versão compacta) */
+.btn--back {
+  margin-top: var(--space-5);
+  padding: 8px 18px;
+  font-size: 14px;
+  background: var(--surface);
+}
+
+.btn--back:hover {
+  background: var(--laranja-100);
+}
+
 /* Trilha "Início / Loja / ..." */
 .breadcrumb {
-  padding: var(--space-5) 0;
+  padding: var(--space-4) 0 var(--space-5);
   font-size: 14px;
   color: var(--ink-soft);
 }

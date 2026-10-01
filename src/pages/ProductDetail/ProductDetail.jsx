@@ -7,10 +7,10 @@
 // e sugestões da mesma categoria ("Combina com").
 // =========================================================
 import { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import ProductArt from '../../components/ProductArt/ProductArt.jsx'
 import ProductCard from '../../components/ProductCard/ProductCard.jsx'
-import { TruckIcon, RefreshIcon } from '../../components/Icons.jsx'
+import { BackIcon, TruckIcon, RefreshIcon } from '../../components/Icons.jsx'
 import { getProductBySlug, getCategoryName, products } from '../../data/products.js'
 import { useCart } from '../../context/CartContext.jsx'
 import { formatPrice, installments } from '../../utils/format.js'
@@ -33,6 +33,14 @@ function ProductDetail() {
 // Conteúdo da página (separado para poder "resetar" com a key)
 function ProductView({ product }) {
   const { addItem } = useCart()
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  // Volta para a página anterior; se o produto foi aberto direto (sem histórico), vai para a Loja
+  const handleBack = () => {
+    if (location.key !== 'default') navigate(-1)
+    else navigate('/loja')
+  }
   const color = product.colors[0] // cor fixa: cada produto tem uma única imagem
   // Tamanho escolhido (se só existir "Único", já vem selecionado)
   const [size, setSize] = useState(product.sizes.length === 1 ? product.sizes[0] : null)
@@ -65,6 +73,11 @@ function ProductView({ product }) {
 
   return (
     <div className="container">
+      {/* Botão para voltar à página anterior */}
+      <button type="button" className="btn btn--ghost btn--back" onClick={handleBack}>
+        <BackIcon size={18} /> Voltar
+      </button>
+
       {/* Trilha de navegação: Início / Loja / Categoria / Produto */}
       <nav className="breadcrumb" aria-label="Você está em">
         <Link to="/">Início</Link> / <Link to="/loja">Loja</Link> /{' '}
