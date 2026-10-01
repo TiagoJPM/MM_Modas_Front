@@ -25,7 +25,7 @@ function ProductCard({ product }) {
       <Link to={`/produto/${product.slug}`} className="product-card__link">
         {/* Imagem + etiquetas */}
         <div className="product-card__media">
-          <ProductArt type={product.type} color={product.colors[0].hex} bg={bg} />
+          <ProductArt type={product.type} color={product.colors[0].hex} image={product.image} bg={bg} />
           <div className="product-card__tags">
             {isNew && <span className="tag">Novo</span>}
             {discount > 0 && <span className="tag tag--roxo">-{discount}%</span>}
@@ -38,12 +38,6 @@ function ProductCard({ product }) {
           <div className="product-card__prices">
             <span className="product-card__price">{formatPrice(product.price)}</span>
             {product.oldPrice && <s className="product-card__old">{formatPrice(product.oldPrice)}</s>}
-          </div>
-          {/* Bolinhas com as cores disponíveis */}
-          <div className="product-card__colors" aria-label={`${product.colors.length} cores disponíveis`}>
-            {product.colors.map((c) => (
-              <span key={c.name} className="swatch-dot" style={{ background: c.hex }} title={c.name} />
-            ))}
           </div>
         </div>
       </Link>

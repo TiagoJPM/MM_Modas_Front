@@ -13,10 +13,10 @@ const CartContext = createContext(null)
 // Chave usada no localStorage do navegador
 const STORAGE_KEY = 'mm-modas:carrinho'
 
-// Cada item do carrinho é identificado por produto + cor + tamanho.
+// Cada item do carrinho é identificado por produto + tamanho.
 // Assim, a mesma camiseta em tamanhos diferentes vira duas linhas.
-function itemKey({ id, color, size }) {
-  return `${id}-${color}-${size}`
+function itemKey({ id, size }) {
+  return `${id}-${size}`
 }
 
 // Reducer: recebe o estado atual + uma ação e devolve o novo estado

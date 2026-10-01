@@ -305,12 +305,16 @@ const shapes = {
 // - color: cor principal da peça
 // - bg: cor de fundo do quadro (opcional)
 // - label: texto alternativo para leitores de tela (opcional)
-function ProductArt({ type = 'tee', color = '#c8b3f0', bg, className = '', label }) {
+// - image: caminho da foto real (ex.: '/produtos/foto.jpg'); se existir, substitui o desenho
+function ProductArt({ type = 'tee', color = '#c8b3f0', bg, className = '', label, image }) {
   // Se o tipo não existir, desenha uma camiseta
   const draw = shapes[type] ?? shapes.tee
 
   return (
     <div className={`product-art ${className}`} style={bg ? { background: bg } : undefined}>
+      {image ? (
+        <img src={image} alt={label ?? ''} className="product-art__img" loading="lazy" />
+      ) : (
       <svg
         viewBox="0 0 200 200"
         className="product-art__svg"
@@ -322,6 +326,7 @@ function ProductArt({ type = 'tee', color = '#c8b3f0', bg, className = '', label
           {draw(color)}
         </g>
       </svg>
+      )}
     </div>
   )
 }

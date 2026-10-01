@@ -1,9 +1,9 @@
 // =========================================================
 // ProductDetail — página de um produto (/produto/:slug)
 // ---------------------------------------------------------
-// Lê o :slug da URL, encontra o produto e mostra: ilustração
-// (muda com a cor escolhida), preço, descrição, seletor de
-// cor, tamanho e quantidade, botão de adicionar ao carrinho
+// Lê o :slug da URL, encontra o produto e mostra: imagem única,
+// preço, descrição, seletor de tamanho e quantidade, botão de
+// adicionar ao carrinho
 // e sugestões da mesma categoria ("Combina com").
 // =========================================================
 import { useState } from 'react'
@@ -33,7 +33,7 @@ function ProductDetail() {
 // Conteúdo da página (separado para poder "resetar" com a key)
 function ProductView({ product }) {
   const { addItem } = useCart()
-  const [color, setColor] = useState(product.colors[0]) // cor escolhida
+  const color = product.colors[0] // cor fixa: cada produto tem uma única imagem
   // Tamanho escolhido (se só existir "Único", já vem selecionado)
   const [size, setSize] = useState(product.sizes.length === 1 ? product.sizes[0] : null)
   const [qty, setQty] = useState(1) // quantidade
@@ -56,8 +56,8 @@ function ProductView({ product }) {
       name: product.name,
       type: product.type,
       price: product.price,
-      color: color.name,
       colorHex: color.hex,
+      image: product.image,
       size,
       qty,
     })
@@ -78,23 +78,11 @@ function ProductView({ product }) {
           <ProductArt
             type={product.type}
             color={color.hex}
+            image={product.image}
             bg="var(--roxo-100)"
             className="pdp__art"
-            label={`${product.name} na cor ${color.name}`}
+            label={product.name}
           />
-          <div className="pdp__thumbs">
-            {product.colors.map((c) => (
-              <button
-                key={c.name}
-                type="button"
-                className={`pdp__thumb ${c.name === color.name ? 'pdp__thumb--active' : ''}`}
-                onClick={() => setColor(c)}
-                aria-label={`Ver na cor ${c.name}`}
-              >
-                <ProductArt type={product.type} color={c.hex} bg="var(--laranja-100)" />
-              </button>
-            ))}
-          </div>
         </div>
 
         {/* ---- Informações e compra ---- */}
@@ -112,26 +100,6 @@ function ProductView({ product }) {
           <p className="muted pdp__installments">{installments(product.price)}</p>
 
           <p className="pdp__desc">{product.description}</p>
-
-          {/* Cor: cada bolinha troca a cor da ilustração */}
-          <fieldset className="pdp__group">
-            <legend>
-              Cor: <strong>{color.name}</strong>
-            </legend>
-            <div className="pdp__swatches">
-              {product.colors.map((c) => (
-                <button
-                  key={c.name}
-                  type="button"
-                  className={`swatch ${c.name === color.name ? 'swatch--active' : ''}`}
-                  style={{ background: c.hex }}
-                  onClick={() => setColor(c)}
-                  aria-label={c.name}
-                  aria-pressed={c.name === color.name}
-                />
-              ))}
-            </div>
-          </fieldset>
 
           {/* Tamanho: obrigatório antes de adicionar ao carrinho */}
           <fieldset className="pdp__group">

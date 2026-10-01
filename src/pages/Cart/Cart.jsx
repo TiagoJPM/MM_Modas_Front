@@ -88,14 +88,14 @@ function Cart() {
           {items.map((item) => (
             <article key={item.key} className="cart-item">
               <Link to={`/produto/${item.slug}`} className="cart-item__art">
-                <ProductArt type={item.type} color={item.colorHex} bg="var(--roxo-100)" />
+                <ProductArt type={item.type} color={item.colorHex} image={item.image} bg="var(--roxo-100)" />
               </Link>
               <div className="cart-item__info">
                 <Link to={`/produto/${item.slug}`} className="cart-item__name">
                   {item.name}
                 </Link>
                 <p className="muted">
-                  {item.color} · Tam. {item.size}
+                  Tam. {item.size}
                 </p>
                 <div className="cart-item__controls">
                   <div className="qty qty--sm">
