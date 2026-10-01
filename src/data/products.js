@@ -169,7 +169,7 @@ export const products = [
     name: 'Moletom Careta',
     category: 'moletons',
     type: 'hoodie',
-    image: '/produtos/moletom-careta.png',
+    image: 'https://res.cloudinary.com/jiwsfdhi/image/upload/v1790896299/moletom-careta.png',
     price: 229.9,
     colors: [cor.pessego, cor.offWhite],
     sizes: TAM_ROUPA,
