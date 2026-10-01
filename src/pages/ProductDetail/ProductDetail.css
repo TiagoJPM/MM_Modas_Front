@@ -51,7 +51,7 @@
   top: calc(var(--header-h) + 16px);
 }
 
-.pdp__art {
+.pdp__img {
   border: 2.5px solid var(--roxo-900);
   border-radius: var(--radius-lg);
   box-shadow: 8px 8px 0 var(--laranja-300);

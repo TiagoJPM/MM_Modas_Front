@@ -13,7 +13,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Mascot from '../../components/Logo/Mascot.jsx'
-import ProductArt from '../../components/ProductArt/ProductArt.jsx'
+import ProductIllustration from '../../components/ProductIllustration/ProductIllustration.jsx'
 import ProductCard from '../../components/ProductCard/ProductCard.jsx'
 import { ArrowIcon, TruckIcon, RefreshIcon, LeafIcon } from '../../components/Icons.jsx'
 import { categories, products } from '../../data/products.js'
@@ -87,10 +87,10 @@ function Home() {
             <span className="sticker sticker--one">100% autêntico</span>
             <span className="sticker sticker--two">sem filtro ✦</span>
             <div className="hero__float hero__float--tee">
-              <ProductArt type="tee" color="#ffc596" bg="var(--surface)" />
+              <ProductIllustration type="tee" color="#ffc596" bg="var(--surface)" />
             </div>
             <div className="hero__float hero__float--cap">
-              <ProductArt type="cap" color="#c8b3f0" bg="var(--surface)" />
+              <ProductIllustration type="cap" color="#c8b3f0" bg="var(--surface)" />
             </div>
           </div>
         </div>
@@ -125,7 +125,7 @@ function Home() {
           <div className="categories">
             {categories.map((c) => (
               <Link key={c.id} to={`/loja?categoria=${c.id}`} className="category" style={{ background: c.bg }}>
-                <ProductArt type={c.art} color="#fff" bg="transparent" className="category__art" />
+                <ProductIllustration type={c.art} color="#fff" bg="transparent" className="category__art" />
                 <span className="category__name">{c.name}</span>
               </Link>
             ))}

@@ -7,12 +7,12 @@
 // =========================================================
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import ProductArt from '../../components/ProductArt/ProductArt.jsx'
 import Mascot from '../../components/Logo/Mascot.jsx'
 import { TrashIcon } from '../../components/Icons.jsx'
 import { useCart } from '../../context/CartContext.jsx'
 import { useUser } from '../../context/UserContext.jsx'
 import { FRETE_GRATIS_A_PARTIR } from '../../context/cartConfig.js'
+import { PRODUCT_IMAGE_FALLBACK } from '../../data/products.js'
 import { formatPrice } from '../../utils/format.js'
 import './Cart.css'
 
@@ -84,11 +84,13 @@ function Cart() {
             </div>
           </div>
 
-          {/* Um card por item (produto + cor + tamanho) */}
+          {/* Um card por item (produto + tamanho) */}
           {items.map((item) => (
             <article key={item.key} className="cart-item">
               <Link to={`/produto/${item.slug}`} className="cart-item__art">
-                <ProductArt type={item.type} color={item.colorHex} image={item.image} bg="var(--roxo-100)" />
+                <div className="product-photo" style={{ '--photo': `url("${item.image ?? PRODUCT_IMAGE_FALLBACK}")` }}>
+                  <img className="product-img" src={item.image ?? PRODUCT_IMAGE_FALLBACK} alt={item.name} />
+                </div>
               </Link>
               <div className="cart-item__info">
                 <Link to={`/produto/${item.slug}`} className="cart-item__name">

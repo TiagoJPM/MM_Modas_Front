@@ -291,6 +291,41 @@ textarea {
   background: var(--roxo-200);
 }
 
+/* ---------- Foto do produto ---------- */
+
+/* Quadro 1:1 que nunca corta o produto. A maioria das fotos não é
+   quadrada, então o fundo usa a própria imagem borrada para preencher
+   a sobra em vez de deixar faixa vazia. */
+.product-photo {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background-color: var(--roxo-100);
+  background-image: var(--photo);
+  background-size: cover;
+  background-position: center;
+}
+
+/* Cópia desfocada, ampliada para o borrão não vazar das bordas */
+.product-photo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  filter: blur(28px) saturate(1.3);
+  transform: scale(1.2);
+}
+
+/* A foto real vem por cima, inteira e nítida */
+.product-img {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: transform 0.35s ease;
+}
+
 /* ---------- Página com cabeçalho simples ---------- */
 
 .page-head {

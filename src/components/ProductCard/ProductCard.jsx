@@ -1,31 +1,32 @@
 // =========================================================
 // ProductCard — card de produto usado na Home, Loja e "Combina com"
 // ---------------------------------------------------------
-// Mostra ilustração, etiquetas (Novo / % de desconto), nome,
-// preço e as cores disponíveis. O card inteiro é um link
-// para a página do produto (/produto/:slug).
+// Mostra a foto do produto, etiquetas (Novo / % de desconto),
+// nome e preço. O card inteiro é um link para a página do
+// produto (/produto/:slug).
 // =========================================================
 import { Link } from 'react-router-dom'
-import ProductArt from '../ProductArt/ProductArt.jsx'
+import { PRODUCT_IMAGE_FALLBACK } from '../../data/products.js'
 import { formatPrice } from '../../utils/format.js'
 import './ProductCard.css'
 
-// Alterna o fundo dos cards entre laranja e roxo claros (pelo id do produto)
-const backgrounds = ['var(--roxo-100)', 'var(--laranja-100)', 'var(--roxo-200)', 'var(--laranja-200)']
-
 function ProductCard({ product }) {
-  const bg = backgrounds[product.id % backgrounds.length]
   const isNew = product.tags.includes('novo')
 
   // Percentual de desconto quando existe preço antigo
   const discount = product.oldPrice ? Math.round((1 - product.price / product.oldPrice) * 100) : 0
 
+  // Sem foto própria, cai no placeholder
+  const photo = product.image ?? PRODUCT_IMAGE_FALLBACK
+
   return (
     <article className="product-card">
       <Link to={`/produto/${product.slug}`} className="product-card__link">
-        {/* Imagem + etiquetas */}
+        {/* Foto + etiquetas */}
         <div className="product-card__media">
-          <ProductArt type={product.type} color={product.colors[0].hex} image={product.image} bg={bg} />
+          <div className="product-photo" style={{ '--photo': `url("${photo}")` }}>
+            <img className="product-img" src={photo} alt={product.name} loading="lazy" />
+          </div>
           <div className="product-card__tags">
             {isNew && <span className="tag">Novo</span>}
             {discount > 0 && <span className="tag tag--roxo">-{discount}%</span>}

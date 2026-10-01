@@ -23,9 +23,9 @@
   box-shadow: 6px 6px 0 var(--roxo-300);
 }
 
-/* ...e a peça gira um pouquinho */
-.product-card:hover .product-art__svg {
-  transform: rotate(-4deg) scale(1.05);
+/* ...e a foto dá um leve zoom */
+.product-card:hover .product-img {
+  transform: scale(1.05);
 }
 
 .product-card__link {

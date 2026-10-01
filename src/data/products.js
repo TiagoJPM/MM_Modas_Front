@@ -3,11 +3,15 @@
 // ---------------------------------------------------------
 // - categories: lista de categorias exibidas na Home, na Loja e no rodapé.
 //   O campo "art" diz qual ilustração representa a categoria.
-// - products: cada produto tem um "type" que define qual peça o
-//   componente ProductArt desenha (tee, shirt, boxer, beanie...).
+// - products: cada produto tem um "type" com a peça (tee, shirt,
+//   boxer, beanie...) e um "image" com a foto em /public/produtos.
+//   Sem "image", os cards caem em PRODUCT_IMAGE_FALLBACK.
 // - tags: ['novo'] faz o produto aparecer em "Novidades" na Home.
 // - oldPrice (opcional): preço antigo, usado para mostrar o desconto.
 // =========================================================
+
+// Foto usada quando o produto ainda não tem imagem própria
+export const PRODUCT_IMAGE_FALLBACK = '/produtos/sem-foto.svg'
 
 // Paleta de cores reaproveitada nos produtos (evita repetir hex)
 const cor = {
@@ -121,6 +125,7 @@ export const products = [
     name: 'Camisa Social Maroto',
     category: 'camisas',
     type: 'dressshirt',
+    image: '/produtos/camisa-social-maroto.png',
     price: 189.9,
     colors: [cor.azulCeu, cor.offWhite, cor.lilas],
     sizes: TAM_ROUPA,
@@ -224,6 +229,7 @@ export const products = [
     name: 'Calça Cargo Rolê',
     category: 'calcas-bermudas',
     type: 'pants',
+    image: '/produtos/calca-cargo-role.png',
     price: 179.9,
     colors: [cor.areia, cor.grafite],
     sizes: TAM_CALCA,
@@ -237,6 +243,7 @@ export const products = [
     name: 'Calça Jogger Domingo',
     category: 'calcas-bermudas',
     type: 'jogger',
+    image: '/produtos/calca-jogger-domingo.png',
     price: 159.9,
     colors: [cor.grafite, cor.lavanda],
     sizes: TAM_ROUPA,
@@ -250,6 +257,7 @@ export const products = [
     name: 'Bermuda de Sarja Solta',
     category: 'calcas-bermudas',
     type: 'shorts',
+    image: '/produtos/bermuda-sarja-solta.png',
     price: 129.9,
     colors: [cor.areia, cor.azulCeu],
     sizes: TAM_CALCA,
@@ -263,6 +271,7 @@ export const products = [
     name: 'Shorts Moletom Preguiça',
     category: 'calcas-bermudas',
     type: 'shorts',
+    image: '/produtos/shorts-moletom-preguica.png',
     price: 119.9,
     colors: [cor.pessego, cor.lilas],
     sizes: TAM_ROUPA,
@@ -278,6 +287,7 @@ export const products = [
     name: 'Kit 3 Cuecas Boxer Maroto',
     category: 'underwear',
     type: 'boxer',
+    image: '/produtos/kit-3-cuecas-boxer-maroto.png',
     price: 99.9,
     oldPrice: 119.7,
     colors: [cor.lavanda, cor.pessego, cor.grafite],
@@ -292,6 +302,7 @@ export const products = [
     name: 'Cueca Boxer Cacheada',
     category: 'underwear',
     type: 'boxer',
+    image: '/produtos/cueca-boxer-cacheada.png',
     price: 39.9,
     colors: [cor.roxoClaro, cor.azulCeu],
     sizes: TAM_ROUPA,
@@ -304,6 +315,7 @@ export const products = [
     name: 'Samba-Canção Bolinhas',
     category: 'underwear',
     type: 'samba',
+    image: '/produtos/samba-cancao-bolinhas.png',
     price: 59.9,
     colors: [cor.lilas, cor.pessego],
     sizes: TAM_ROUPA,
@@ -317,6 +329,7 @@ export const products = [
     name: 'Kit 3 Meias Sorriso',
     category: 'underwear',
     type: 'socks',
+    image: '/produtos/kit-3-meias-sorriso.png',
     price: 49.9,
     colors: [cor.pessego, cor.lavanda, cor.offWhite],
     sizes: TAM_MEIA,
@@ -332,6 +345,7 @@ export const products = [
     name: 'Camiseta Dry-Fit Treino Pesado',
     category: 'training',
     type: 'dryfit',
+    image: '/produtos/camiseta-dry-fit-treino-pesado.png',
     price: 99.9,
     colors: [cor.roxoClaro, cor.verdeMenta],
     sizes: TAM_ROUPA,
@@ -345,6 +359,7 @@ export const products = [
     name: 'Regata Treino Sem Desculpa',
     category: 'training',
     type: 'tank',
+    image: '/produtos/regata-treino-sem-desculpa.png',
     price: 79.9,
     colors: [cor.grafite, cor.laranja],
     sizes: TAM_ROUPA,
@@ -358,6 +373,7 @@ export const products = [
     name: 'Bermuda de Treino Leve',
     category: 'training',
     type: 'shorts',
+    image: '/produtos/bermuda-treino-leve.png',
     price: 109.9,
     colors: [cor.grafite, cor.azulCeu],
     sizes: TAM_ROUPA,

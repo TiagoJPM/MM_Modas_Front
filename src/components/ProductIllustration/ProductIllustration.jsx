@@ -1,11 +1,12 @@
 // =========================================================
-// ProductArt — ilustração SVG de cada peça do catálogo
+// ProductIllustration — ilustração SVG de cada peça do catálogo
 // ---------------------------------------------------------
-// Enquanto o grupo não tem fotos reais, cada produto é desenhado
-// em SVG. O "type" do produto escolhe o desenho e "color" pinta a peça.
-// Para usar fotos, basta trocar <ProductArt /> por <img />.
+// Usada apenas nos lugares decorativos (cards flutuantes do hero
+// e ícones das categorias na Home). Nos cards de produto, na página
+// do produto e no carrinho quem manda é a foto (ver <img>).
+// O "type" escolhe o desenho e "color" pinta a peça.
 // =========================================================
-import './ProductArt.css'
+import './ProductIllustration.css'
 
 // Cor do contorno (mesmo roxo escuro do texto do site)
 const INK = '#2c1f4a'
@@ -305,19 +306,15 @@ const shapes = {
 // - color: cor principal da peça
 // - bg: cor de fundo do quadro (opcional)
 // - label: texto alternativo para leitores de tela (opcional)
-// - image: caminho da foto real (ex.: '/produtos/foto.jpg'); se existir, substitui o desenho
-function ProductArt({ type = 'tee', color = '#c8b3f0', bg, className = '', label, image }) {
+function ProductIllustration({ type = 'tee', color = '#c8b3f0', bg, className = '', label }) {
   // Se o tipo não existir, desenha uma camiseta
   const draw = shapes[type] ?? shapes.tee
 
   return (
-    <div className={`product-art ${className}`} style={bg ? { background: bg } : undefined}>
-      {image ? (
-        <img src={image} alt={label ?? ''} className="product-art__img" loading="lazy" />
-      ) : (
+    <div className={`product-illustration ${className}`} style={bg ? { background: bg } : undefined}>
       <svg
         viewBox="0 0 200 200"
-        className="product-art__svg"
+        className="product-illustration__svg"
         // Com label: imagem acessível. Sem label: decorativa (ignorada por leitores de tela)
         {...(label ? { role: 'img', 'aria-label': label } : { 'aria-hidden': true })}
       >
@@ -326,9 +323,8 @@ function ProductArt({ type = 'tee', color = '#c8b3f0', bg, className = '', label
           {draw(color)}
         </g>
       </svg>
-      )}
     </div>
   )
 }
 
-export default ProductArt
+export default ProductIllustration

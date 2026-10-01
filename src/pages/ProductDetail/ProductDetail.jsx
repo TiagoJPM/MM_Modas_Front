@@ -8,10 +8,9 @@
 // =========================================================
 import { useState } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
-import ProductArt from '../../components/ProductArt/ProductArt.jsx'
 import ProductCard from '../../components/ProductCard/ProductCard.jsx'
 import { BackIcon, TruckIcon, RefreshIcon } from '../../components/Icons.jsx'
-import { getProductBySlug, getCategoryName, products } from '../../data/products.js'
+import { getProductBySlug, getCategoryName, products, PRODUCT_IMAGE_FALLBACK } from '../../data/products.js'
 import { useCart } from '../../context/CartContext.jsx'
 import { formatPrice, installments } from '../../utils/format.js'
 import NotFound from '../NotFound/NotFound.jsx'
@@ -86,16 +85,14 @@ function ProductView({ product }) {
       </nav>
 
       <section className="pdp">
-        {/* ---- Galeria: imagem grande + miniaturas por cor ---- */}
+        {/* ---- Foto do produto ---- */}
         <div className="pdp__gallery">
-          <ProductArt
-            type={product.type}
-            color={color.hex}
-            image={product.image}
-            bg="var(--roxo-100)"
-            className="pdp__art"
-            label={product.name}
-          />
+          <div
+            className="product-photo pdp__img"
+            style={{ '--photo': `url("${product.image ?? PRODUCT_IMAGE_FALLBACK}")` }}
+          >
+            <img className="product-img" src={product.image ?? PRODUCT_IMAGE_FALLBACK} alt={product.name} />
+          </div>
         </div>
 
         {/* ---- Informações e compra ---- */}

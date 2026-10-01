@@ -1,9 +1,9 @@
 /* =========================================================
-   ProductArt — quadro quadrado onde a peça é desenhada
+   ProductIllustration — quadro quadrado onde a peça é desenhada
    ========================================================= */
 
 /* Quadro 1:1 com a ilustração centralizada */
-.product-art {
+.product-illustration {
   position: relative;
   display: grid;
   place-items: center;
@@ -13,7 +13,7 @@
 }
 
 /* Textura de bolinhas no fundo (pseudo-elemento, não pesa no HTML) */
-.product-art::before {
+.product-illustration::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -22,19 +22,11 @@
 }
 
 /* A peça ocupa 72% do quadro; a transição anima o hover do card */
-.product-art__svg {
+.product-illustration__svg {
   position: relative;
   width: 72%;
   height: 72%;
   transition: transform 0.35s ease;
-}
-
-/* Foto real do produto: aparece inteira (sem cortes) dentro do quadro */
-.product-art__img {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
 }
 
 /* Estampa "MM" desenhada nas camisetas, regatas e acessórios */

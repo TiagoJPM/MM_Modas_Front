@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600" role="img" aria-label="Foto do produto indisponível">
+  <rect width="600" height="600" fill="#efe8fc"/>
+  <rect x="24" y="24" width="552" height="552" rx="28" fill="none" stroke="#c8b3f0" stroke-width="8" stroke-dasharray="28 20" stroke-linecap="round"/>
+  <g fill="none" stroke="#8f72d6" stroke-width="14" stroke-linejoin="round" stroke-linecap="round">
+    <rect x="186" y="212" width="228" height="176" rx="20"/>
+    <path d="M186 340l58-58a20 20 0 0 1 28 0l84 84"/>
+    <path d="M414 340l-40-40a20 20 0 0 0-28 0l-24 24"/>
+  </g>
+  <circle cx="262" cy="266" r="20" fill="#8f72d6"/>
+  <text x="300" y="452" text-anchor="middle" font-family="'Bricolage Grotesque','DM Sans',system-ui,sans-serif" font-size="42" font-weight="700" fill="#5d5075">sem foto</text>
+</svg>
