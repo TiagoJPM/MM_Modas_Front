@@ -1,3 +1,8 @@
+/* =========================================================
+   Contato (/contato) — formulário, canais e FAQ
+   ========================================================= */
+
+/* Formulário (maior) + lateral */
 .contact {
   display: grid;
   grid-template-columns: 1.4fr 1fr;
@@ -5,6 +10,7 @@
   align-items: start;
 }
 
+/* Cartão do formulário com sombra dura laranja */
 .contact__card {
   padding: var(--space-6);
   background: var(--surface);
@@ -13,6 +19,7 @@
   box-shadow: 8px 8px 0 var(--laranja-300);
 }
 
+/* Nome e e-mail lado a lado */
 .contact__row {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -20,9 +27,10 @@
 }
 
 textarea.input {
-  resize: vertical;
+  resize: vertical; /* só deixa aumentar a altura */
 }
 
+/* Tela de "mensagem enviada" */
 .contact__sent {
   display: flex;
   flex-direction: column;
@@ -35,6 +43,7 @@ textarea.input {
   margin-top: var(--space-4);
 }
 
+/* ---------- Lateral ---------- */
 .contact__side {
   display: grid;
   gap: var(--space-5);
@@ -50,6 +59,7 @@ textarea.input {
   border-radius: var(--radius-lg);
 }
 
+/* Botões de canal (WhatsApp / Instagram) */
 .channel {
   display: flex;
   align-items: center;
@@ -83,24 +93,42 @@ textarea.input {
   color: var(--ink-soft);
 }
 
+/* ---------- FAQ ---------- */
+
+/* scroll-margin-top: ao rolar até a âncora, não fica escondido atrás do header fixo */
+.faq,
 .faq__item {
-  border-bottom: 2px dashed var(--line);
-  padding: var(--space-3) 0;
+  scroll-margin-top: calc(var(--header-h) + 24px);
 }
 
+.faq__item {
+  border-bottom: 2px dashed var(--line);
+  padding: var(--space-3) var(--space-2);
+  border-radius: var(--radius-sm);
+  transition: background 0.3s ease;
+}
+
+/* Pergunta aberta pelo link do rodapé fica destacada */
+.faq__item--target {
+  background: var(--laranja-100);
+  box-shadow: inset 0 0 0 2px var(--laranja-300);
+}
+
+/* <summary> é o título clicável do <details> */
 .faq__item summary {
   cursor: pointer;
   font-weight: 700;
-  list-style: none;
+  list-style: none; /* remove a setinha padrão */
   display: flex;
   justify-content: space-between;
   gap: var(--space-3);
 }
 
 .faq__item summary::-webkit-details-marker {
-  display: none;
+  display: none; /* remove a setinha padrão no Safari */
 }
 
+/* "+" que gira e vira "×" quando a pergunta está aberta */
 .faq__item summary::after {
   content: '+';
   font-size: 20px;
@@ -118,6 +146,7 @@ textarea.input {
   color: var(--ink-soft);
 }
 
+/* ---------- Responsivo ---------- */
 @media (max-width: 900px) {
   .contact {
     grid-template-columns: 1fr;

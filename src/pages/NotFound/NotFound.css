@@ -1,3 +1,7 @@
+/* =========================================================
+   Página 404
+   ========================================================= */
+
 .not-found {
   display: flex;
   flex-direction: column;
@@ -6,6 +10,7 @@
   padding: var(--space-8) var(--space-4);
 }
 
+/* "4 [mascote] 4" gigante com contorno */
 .not-found__code {
   display: flex;
   align-items: center;
@@ -18,6 +23,7 @@
   -webkit-text-stroke: 3px var(--roxo-900);
 }
 
+/* Mascote balançando no lugar do zero */
 .not-found__code svg {
   width: clamp(90px, 16vw, 150px);
   height: auto;

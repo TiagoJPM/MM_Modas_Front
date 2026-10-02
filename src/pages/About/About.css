@@ -1,3 +1,8 @@
+/* =========================================================
+   Nossa história (/sobre)
+   ========================================================= */
+
+/* ---------- Abertura: texto + retrato do mascote ---------- */
 .about__hero {
   display: grid;
   grid-template-columns: 1.3fr 1fr;
@@ -12,6 +17,7 @@
   font-weight: 800;
 }
 
+/* "Menino Mau" em roxo com marca-texto laranja (gradiente com cortes secos) */
 .about__accent {
   color: var(--roxo-600);
   background: linear-gradient(transparent 62%, var(--laranja-300) 62%, var(--laranja-300) 90%, transparent 90%);
@@ -23,6 +29,7 @@
   max-width: 540px;
 }
 
+/* Moldura em arco com o mascote, levemente girada */
 .about__portrait {
   justify-self: center;
   display: flex;
@@ -44,18 +51,19 @@
   color: var(--roxo-700);
 }
 
-/* ---------- Linha do tempo ---------- */
+/* ---------- Como tudo começou: 3 pilares ligados por linha tracejada ---------- */
 
 .timeline {
   list-style: none;
   padding: 0;
   margin: var(--space-6) 0 0;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-5);
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
   position: relative;
 }
 
+/* Linha tracejada que liga os números */
 .timeline::before {
   content: '';
   position: absolute;
@@ -91,10 +99,11 @@
 
 .timeline__item p {
   color: var(--ink-soft);
+  font-size: 17px;
   margin: 0;
 }
 
-/* ---------- Valores ---------- */
+/* ---------- Valores: cards alternando inclinação ---------- */
 
 .values {
   padding: var(--space-8) 0;
@@ -134,6 +143,7 @@
   margin: 0;
 }
 
+/* ---------- Chamada final ---------- */
 .about__cta {
   text-align: center;
   padding-top: var(--space-8);
@@ -144,12 +154,13 @@
   margin-bottom: var(--space-5);
 }
 
+/* ---------- Responsivo ---------- */
 @media (max-width: 900px) {
   .about__hero {
     grid-template-columns: 1fr;
   }
   .timeline {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
   .timeline::before {
     display: none;

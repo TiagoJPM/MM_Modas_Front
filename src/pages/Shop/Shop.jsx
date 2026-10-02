@@ -1,3 +1,13 @@
+// =========================================================
+// Shop — catálogo completo (/loja)
+// ---------------------------------------------------------
+// Filtros disponíveis:
+//  - categoria (fica na URL: /loja?categoria=underwear, assim
+//    os links da Home e do rodapé já abrem filtrado);
+//  - busca por nome;
+//  - "só promoções";
+//  - ordenação (relevância, preço, nome).
+// =========================================================
 import { useMemo, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import ProductCard from '../../components/ProductCard/ProductCard.jsx'
@@ -7,6 +17,7 @@ import { categories, products } from '../../data/products.js'
 import '../../components/ProductCard/ProductCard.css'
 import './Shop.css'
 
+// Opções do select de ordenação: valor -> texto exibido
 const sortOptions = {
   relevancia: 'Relevância',
   'menor-preco': 'Menor preço',
@@ -15,12 +26,14 @@ const sortOptions = {
 }
 
 function Shop() {
+  // Lê/escreve os parâmetros da URL (?categoria=...)
   const [searchParams, setSearchParams] = useSearchParams()
   const activeCategory = searchParams.get('categoria') ?? 'todas'
   const [query, setQuery] = useState('')
   const [sort, setSort] = useState('relevancia')
   const [onlyPromo, setOnlyPromo] = useState(false)
 
+  // Troca a categoria atualizando a URL
   const selectCategory = (id) => {
     if (id === 'todas') setSearchParams({})
     else setSearchParams({ categoria: id })
@@ -41,6 +54,7 @@ function Shop() {
     return list
   }, [activeCategory, query, sort, onlyPromo])
 
+  // Título da página muda conforme a categoria
   const title = activeCategory === 'todas' ? 'Toda a loja' : categories.find((c) => c.id === activeCategory)?.name
 
   return (
@@ -53,6 +67,7 @@ function Shop() {
         </p>
       </header>
 
+      {/* Botões de categoria ("chips") */}
       <div className="shop__chips" role="tablist" aria-label="Categorias">
         {[{ id: 'todas', name: 'Todas' }, ...categories].map((c) => (
           <button
@@ -68,6 +83,7 @@ function Shop() {
         ))}
       </div>
 
+      {/* Barra de busca, filtro de promoção e ordenação */}
       <div className="shop__toolbar">
         <label className="shop__search">
           <SearchIcon size={18} />
@@ -97,6 +113,7 @@ function Shop() {
         </label>
       </div>
 
+      {/* Grade de produtos ou mensagem de "nada encontrado" */}
       {visible.length > 0 ? (
         <div className="product-grid">
           {visible.map((p) => (

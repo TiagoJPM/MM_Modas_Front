@@ -1,3 +1,15 @@
+// =========================================================
+// Home — página inicial (/)
+// ---------------------------------------------------------
+// Seções, de cima para baixo:
+//  1. Hero (chamada principal + mascote)
+//  2. Faixa animada (marquee)
+//  3. Categorias
+//  4. Novidades (produtos com a tag 'novo')
+//  5. Manifesto (3 pilares da marca)
+//  6. Benefícios (frete, troca, produção)
+//  7. Newsletter
+// =========================================================
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Mascot from '../../components/Logo/Mascot.jsx'
@@ -8,8 +20,10 @@ import { categories, products } from '../../data/products.js'
 import '../../components/ProductCard/ProductCard.css'
 import './Home.css'
 
+// Palavras que passam na faixa animada
 const marqueeWords = ['Autêntico', 'Sem filtro', 'Feito pra você', 'Menino Mau aprova', 'Conforto com atitude']
 
+// Os 3 pilares do manifesto
 const pillars = [
   {
     title: 'Autenticidade',
@@ -29,18 +43,21 @@ const pillars = [
 ]
 
 function Home() {
-  const featured = products.filter((p) => p.tags.includes('drop')).slice(0, 4)
+  // Novidades = produtos marcados com a tag 'novo' (mostra até 8)
+  const novidades = products.filter((p) => p.tags.includes('novo')).slice(0, 8)
+
+  // Estado da newsletter
   const [email, setEmail] = useState('')
   const [subscribed, setSubscribed] = useState(false)
 
   const handleSubscribe = (e) => {
-    e.preventDefault()
+    e.preventDefault() // impede o recarregamento da página
     if (email.includes('@')) setSubscribed(true)
   }
 
   return (
     <>
-      {/* ---------- HERO ---------- */}
+      {/* ---------- 1. HERO ---------- */}
       <section className="hero">
         <div className="container hero__inner">
           <div className="hero__text">
@@ -49,19 +66,19 @@ function Home() {
               Bonzinho demais? <span className="hero__highlight">Aqui não.</span>
             </h1>
             <p className="hero__lead">
-              A MM MODAS é pra quem tem personalidade de sobra. Roupas confortáveis, cheias de detalhe e com
-              aquele sorriso maroto de quem sabe exatamente quem é.
+              Roupas confortáveis, cheias de detalhe e com aquele sorriso maroto de quem sabe exatamente quem é.
             </p>
             <div className="hero__cta">
               <Link to="/loja" className="btn btn--primary">
                 Ver a coleção <ArrowIcon size={18} />
               </Link>
               <Link to="/sobre" className="btn btn--ghost">
-                Quem é o Menino Mau?
+                Nossa história
               </Link>
             </div>
           </div>
 
+          {/* Composição decorativa (aria-hidden: leitores de tela ignoram) */}
           <div className="hero__visual" aria-hidden="true">
             <div className="hero__blob" />
             <div className="hero__mascot">
@@ -79,7 +96,8 @@ function Home() {
         </div>
       </section>
 
-      {/* ---------- FAIXA ---------- */}
+      {/* ---------- 2. FAIXA ANIMADA ---------- */}
+      {/* A lista é repetida 3x para a animação dar a volta sem "buraco" */}
       <div className="marquee" aria-hidden="true">
         <div className="marquee__track">
           {[...marqueeWords, ...marqueeWords, ...marqueeWords].map((w, i) => (
@@ -90,7 +108,7 @@ function Home() {
         </div>
       </div>
 
-      {/* ---------- CATEGORIAS ---------- */}
+      {/* ---------- 3. CATEGORIAS ---------- */}
       <section className="section">
         <div className="container">
           <div className="section-head">
@@ -103,6 +121,7 @@ function Home() {
             </Link>
           </div>
 
+          {/* Cada card leva para a loja já filtrada: /loja?categoria=id */}
           <div className="categories">
             {categories.map((c) => (
               <Link key={c.id} to={`/loja?categoria=${c.id}`} className="category" style={{ background: c.bg }}>
@@ -114,35 +133,35 @@ function Home() {
         </div>
       </section>
 
-      {/* ---------- DESTAQUES ---------- */}
+      {/* ---------- 4. NOVIDADES ---------- */}
       <section className="section section--tinted">
         <div className="container">
           <div className="section-head">
             <div>
               <span className="eyebrow">Acabou de chegar</span>
-              <h2 className="section-title">Drop da semana</h2>
+              <h2 className="section-title">Novidades</h2>
             </div>
             <Link to="/loja" className="link-arrow">
               Ir pra loja <ArrowIcon size={18} />
             </Link>
           </div>
           <div className="product-grid">
-            {featured.map((p) => (
+            {novidades.map((p) => (
               <ProductCard key={p.id} product={p} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* ---------- MANIFESTO ---------- */}
+      {/* ---------- 5. MANIFESTO ---------- */}
       <section className="section">
         <div className="container manifesto">
           <div className="manifesto__intro">
             <span className="eyebrow">Manifesto</span>
             <h2 className="section-title">Ser Menino Mau é ser de verdade.</h2>
             <p className="muted">
-              O nome veio do apelido de um amigo — aquele que sempre tinha uma ideia meio fora da caixa e um
-              sorriso que entregava tudo. Virou marca, virou jeito de vestir.
+              A MM MODAS nasceu de uma conversa entre amigos na faculdade e virou jeito de vestir: criatividade,
+              conforto e atitude em cada peça.
             </p>
             <Link to="/sobre" className="btn btn--accent">
               Conheça a história
@@ -160,7 +179,7 @@ function Home() {
         </div>
       </section>
 
-      {/* ---------- BENEFÍCIOS ---------- */}
+      {/* ---------- 6. BENEFÍCIOS ---------- */}
       <section className="container benefits">
         <div className="benefit">
           <TruckIcon />
@@ -185,7 +204,7 @@ function Home() {
         </div>
       </section>
 
-      {/* ---------- NEWSLETTER ---------- */}
+      {/* ---------- 7. NEWSLETTER ---------- */}
       <section className="section">
         <div className="container">
           <div className="newsletter">
@@ -194,9 +213,12 @@ function Home() {
             </div>
             <div className="newsletter__content">
               <h2>Entra pra turma do Menino Mau</h2>
-              <p>Receba os drops antes de todo mundo e ganhe 10% na primeira compra.</p>
+              <p>Receba as novidades antes de todo mundo e ganhe 10% na primeira compra.</p>
+              {/* Depois de inscrito, troca o formulário pela mensagem de sucesso */}
               {subscribed ? (
-                <p className="newsletter__ok">Prontinho! Seu cupom é <strong>MENINOMAU10</strong></p>
+                <p className="newsletter__ok">
+                  Prontinho! Seu cupom é <strong>MENINOMAU10</strong>
+                </p>
               ) : (
                 <form className="newsletter__form" onSubmit={handleSubscribe}>
                   <label htmlFor="newsletter-email" className="sr-only">

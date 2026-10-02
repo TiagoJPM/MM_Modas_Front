@@ -17,13 +17,14 @@ npm run preview   # testa o build
 
 | Rota | Página |
 | --- | --- |
-| `/` | Início: hero, categorias, drop da semana, manifesto, newsletter |
+| `/` | Início: hero, categorias, novidades, manifesto, newsletter |
 | `/loja` | Catálogo com filtro por categoria (`?categoria=`), busca, promoções e ordenação |
 | `/produto/:slug` | Detalhe do produto: cor, tamanho, quantidade, adicionar ao carrinho |
 | `/carrinho` | Carrinho com barra de frete grátis e cupom (`MENINOMAU10`) |
-| `/checkout` | Formulário com validação e confirmação do pedido |
+| `/cadastro` | Cadastro de **cliente** ou **funcionário** (matrícula de 8 caracteres). Depois de cadastrado, vira "Minha conta" |
+| `/checkout` | Só abre com cadastro feito; endereço vem preenchido; CEP limitado a 8 dígitos |
 | `/sobre` | A história do Menino Mau |
-| `/contato` | Formulário de contato + FAQ |
+| `/contato` | Formulário de contato + FAQ (os links "Ajuda" do rodapé abrem a pergunta certa, ex.: `/contato#faq-trocas`) |
 | `*` | Página 404 |
 
 ## Estrutura
@@ -31,14 +32,26 @@ npm run preview   # testa o build
 ```
 src/
 ├── components/        # Header, Footer, Logo/Mascot, ProductCard, ProductArt, Toast, Icons
-├── context/           # CartContext (useReducer + localStorage) e regras do carrinho
-├── data/products.js   # catálogo fictício
+├── context/           # CartContext (carrinho), UserContext (cadastro) e regras do carrinho
+├── data/products.js   # catálogo fictício (8 categorias, 32 produtos)
+├── data/faq.js        # perguntas frequentes (Contato + rodapé)
 ├── pages/             # uma pasta por página (JSX + CSS)
 ├── styles/global.css  # variáveis de cor, tipografia, botões, formulários
-└── utils/format.js    # formatação de preço (R$)
+├── utils/format.js    # formatação de preço (R$)
+└── utils/validators.js # máscaras e validações (CEP, CPF, telefone, matrícula) + busca de CEP (ViaCEP)
 ```
 
-Cada componente tem o seu próprio arquivo `.css`, importado no `.jsx`.
+Cada componente tem o seu próprio arquivo `.css`, importado no `.jsx`. Todos os arquivos têm comentários explicando cada parte.
+
+## Categorias
+
+Camisetas & Regatas · Camisas · Moletons & Tricô · Jaquetas · Calças & Bermudas · **Underwear** · **Training** · Acessórios
+
+## Cadastro
+
+- Os dados ficam salvos no `localStorage` do navegador (não há servidor). A senha não é guardada.
+- CPF validado pelos dígitos verificadores. CEP com 8 números preenche o endereço automaticamente pela API ViaCEP.
+- Para testar: CPF válido de exemplo `529.982.247-25`.
 
 ## Identidade visual
 

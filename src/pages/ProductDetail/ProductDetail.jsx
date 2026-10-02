@@ -1,8 +1,16 @@
+// =========================================================
+// ProductDetail — página de um produto (/produto/:slug)
+// ---------------------------------------------------------
+// Lê o :slug da URL, encontra o produto e mostra: imagem única,
+// preço, descrição, seletor de tamanho e quantidade, botão de
+// adicionar ao carrinho
+// e sugestões da mesma categoria ("Combina com").
+// =========================================================
 import { useState } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import ProductArt from '../../components/ProductArt/ProductArt.jsx'
 import ProductCard from '../../components/ProductCard/ProductCard.jsx'
-import { TruckIcon, RefreshIcon } from '../../components/Icons.jsx'
+import { BackIcon, TruckIcon, RefreshIcon } from '../../components/Icons.jsx'
 import { getProductBySlug, getCategoryName, products } from '../../data/products.js'
 import { useCart } from '../../context/CartContext.jsx'
 import { formatPrice, installments } from '../../utils/format.js'
@@ -11,25 +19,40 @@ import '../../components/ProductCard/ProductCard.css'
 import './ProductDetail.css'
 
 function ProductDetail() {
+  // Pega o parâmetro :slug da URL
   const { slug } = useParams()
   const product = getProductBySlug(slug)
 
+  // Slug inexistente -> página 404
   if (!product) return <NotFound />
 
   // A "key" reinicia os estados (cor, tamanho...) ao navegar entre produtos
   return <ProductView key={slug} product={product} />
 }
 
+// Conteúdo da página (separado para poder "resetar" com a key)
 function ProductView({ product }) {
   const { addItem } = useCart()
-  const [color, setColor] = useState(product.colors[0])
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  // Volta para a página anterior; se o produto foi aberto direto (sem histórico), vai para a Loja
+  const handleBack = () => {
+    if (location.key !== 'default') navigate(-1)
+    else navigate('/loja')
+  }
+  const color = product.colors[0] // cor fixa: cada produto tem uma única imagem
+  // Tamanho escolhido (se só existir "Único", já vem selecionado)
   const [size, setSize] = useState(product.sizes.length === 1 ? product.sizes[0] : null)
-  const [qty, setQty] = useState(1)
-  const [sizeError, setSizeError] = useState(false)
+  const [qty, setQty] = useState(1) // quantidade
+  const [sizeError, setSizeError] = useState(false) // clicou em comprar sem tamanho?
+
+  // Sugestões: mesma categoria; se não houver, quaisquer outros produtos
 
   const related = products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4)
   const fallback = products.filter((p) => p.id !== product.id).slice(0, 4)
 
+  // Adiciona ao carrinho (exige tamanho escolhido)
   const handleAdd = () => {
     if (!size) {
       setSizeError(true)
@@ -41,8 +64,8 @@ function ProductView({ product }) {
       name: product.name,
       type: product.type,
       price: product.price,
-      color: color.name,
       colorHex: color.hex,
+      image: product.image,
       size,
       qty,
     })
@@ -50,6 +73,12 @@ function ProductView({ product }) {
 
   return (
     <div className="container">
+      {/* Botão para voltar à página anterior */}
+      <button type="button" className="btn btn--ghost btn--back" onClick={handleBack}>
+        <BackIcon size={18} /> Voltar
+      </button>
+
+      {/* Trilha de navegação: Início / Loja / Categoria / Produto */}
       <nav className="breadcrumb" aria-label="Você está em">
         <Link to="/">Início</Link> / <Link to="/loja">Loja</Link> /{' '}
         <Link to={`/loja?categoria=${product.category}`}>{getCategoryName(product.category)}</Link> /{' '}
@@ -57,36 +86,26 @@ function ProductView({ product }) {
       </nav>
 
       <section className="pdp">
+        {/* ---- Galeria: imagem grande + miniaturas por cor ---- */}
         <div className="pdp__gallery">
           <ProductArt
             type={product.type}
             color={color.hex}
+            image={product.image}
             bg="var(--roxo-100)"
             className="pdp__art"
-            label={`${product.name} na cor ${color.name}`}
+            label={product.name}
           />
-          <div className="pdp__thumbs">
-            {product.colors.map((c) => (
-              <button
-                key={c.name}
-                type="button"
-                className={`pdp__thumb ${c.name === color.name ? 'pdp__thumb--active' : ''}`}
-                onClick={() => setColor(c)}
-                aria-label={`Ver na cor ${c.name}`}
-              >
-                <ProductArt type={product.type} color={c.hex} bg="var(--laranja-100)" />
-              </button>
-            ))}
-          </div>
         </div>
 
+        {/* ---- Informações e compra ---- */}
         <div className="pdp__info">
           <div className="pdp__tags">
-            {product.tags.includes('novo') && <span className="tag">Novo</span>}
-            {product.tags.includes('drop') && <span className="tag tag--roxo">Drop da semana</span>}
+            {product.tags.includes('novo') && <span className="tag">Novidade</span>}
           </div>
           <h1 className="pdp__name">{product.name}</h1>
 
+          {/* Preço atual, preço antigo riscado e parcelamento */}
           <div className="pdp__price">
             <strong>{formatPrice(product.price)}</strong>
             {product.oldPrice && <s>{formatPrice(product.oldPrice)}</s>}
@@ -95,27 +114,7 @@ function ProductView({ product }) {
 
           <p className="pdp__desc">{product.description}</p>
 
-          {/* Cor */}
-          <fieldset className="pdp__group">
-            <legend>
-              Cor: <strong>{color.name}</strong>
-            </legend>
-            <div className="pdp__swatches">
-              {product.colors.map((c) => (
-                <button
-                  key={c.name}
-                  type="button"
-                  className={`swatch ${c.name === color.name ? 'swatch--active' : ''}`}
-                  style={{ background: c.hex }}
-                  onClick={() => setColor(c)}
-                  aria-label={c.name}
-                  aria-pressed={c.name === color.name}
-                />
-              ))}
-            </div>
-          </fieldset>
-
-          {/* Tamanho */}
+          {/* Tamanho: obrigatório antes de adicionar ao carrinho */}
           <fieldset className="pdp__group">
             <legend>
               Tamanho{size && <>: <strong>{size}</strong></>}
@@ -139,7 +138,7 @@ function ProductView({ product }) {
             {sizeError && <p className="field-error">Escolhe um tamanho primeiro, vai!</p>}
           </fieldset>
 
-          {/* Quantidade + comprar */}
+          {/* Quantidade (mínimo 1) + botão de comprar */}
           <div className="pdp__buy">
             <div className="qty" aria-label="Quantidade">
               <button type="button" onClick={() => setQty((q) => Math.max(1, q - 1))} aria-label="Diminuir">
@@ -155,6 +154,7 @@ function ProductView({ product }) {
             </button>
           </div>
 
+          {/* Vantagens */}
           <ul className="pdp__perks">
             <li>
               <TruckIcon size={20} /> Frete grátis acima de R$ 299
@@ -166,6 +166,7 @@ function ProductView({ product }) {
         </div>
       </section>
 
+      {/* ---- Sugestões da mesma categoria ---- */}
       <section className="section">
         <h2 className="section-title">Combina com</h2>
         <div className="product-grid">

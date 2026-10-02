@@ -1,3 +1,8 @@
+/* =========================================================
+   Loja (/loja) — filtros e grade de produtos
+   ========================================================= */
+
+/* Linha de categorias (quebra para a linha de baixo se faltar espaço) */
 .shop__chips {
   display: flex;
   flex-wrap: wrap;
@@ -19,12 +24,14 @@
   background: var(--roxo-100);
 }
 
+/* Categoria selecionada: laranja e levemente girada */
 .chip--active {
   background: var(--laranja-300);
   font-weight: 700;
   transform: rotate(-2deg);
 }
 
+/* Barra de ferramentas (busca, promoções, ordenar) */
 .shop__toolbar {
   display: flex;
   flex-wrap: wrap;
@@ -37,6 +44,7 @@
   border-radius: var(--radius-md);
 }
 
+/* Campo de busca em formato de pílula com a lupa dentro */
 .shop__search {
   flex: 1;
   min-width: 200px;
@@ -86,6 +94,7 @@
   cursor: pointer;
 }
 
+/* Estado vazio: nenhum produto com esses filtros */
 .shop__empty {
   display: flex;
   flex-direction: column;

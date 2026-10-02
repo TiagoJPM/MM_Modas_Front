@@ -1,8 +1,12 @@
+/* =========================================================
+   Toast — caixinha fixa no canto inferior direito
+   ========================================================= */
+
 .toast {
-  position: fixed;
+  position: fixed; /* fica parado mesmo rolando a página */
   right: 24px;
   bottom: 24px;
-  z-index: 100;
+  z-index: 100; /* acima de tudo */
   display: flex;
   align-items: center;
   gap: var(--space-3);
@@ -11,7 +15,7 @@
   background: var(--surface);
   border: 2px solid var(--roxo-900);
   border-radius: var(--radius-md);
-  box-shadow: 5px 5px 0 var(--laranja-300);
+  box-shadow: 5px 5px 0 var(--laranja-300); /* sombra dura laranja */
   animation: toast-in 0.3s ease;
 }
 
@@ -29,6 +33,7 @@
   text-decoration: none;
 }
 
+/* Entrada: sobe um pouco enquanto aparece */
 @keyframes toast-in {
   from {
     opacity: 0;
@@ -40,6 +45,7 @@
   }
 }
 
+/* No celular ocupa a largura toda */
 @media (max-width: 640px) {
   .toast {
     left: 16px;

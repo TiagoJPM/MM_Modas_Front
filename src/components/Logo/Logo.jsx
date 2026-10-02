@@ -1,3 +1,7 @@
+// =========================================================
+// Logo — selo com o mascote + "MM / MODAS"
+// Props: size (tamanho do mascote) e light (versão para fundo escuro)
+// =========================================================
 import Mascot from './Mascot.jsx'
 import './Logo.css'
 

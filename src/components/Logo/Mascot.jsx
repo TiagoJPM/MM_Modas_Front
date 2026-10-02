@@ -1,6 +1,10 @@
+// =========================================================
 // Mascote "Menino Mau" desenhado em SVG, inspirado na caricatura do grupo:
 // cabelo cacheado, sobrancelhas arqueadas e aquele sorriso de quem aprontou.
+// Props: size (px), title (texto alternativo; vazio = decorativo)
+// =========================================================
 function Mascot({ size = 56, className = '', title = 'Mascote Menino Mau' }) {
+  // Cores do desenho
   const ink = '#2c1f4a'
   const hair = '#c8b3f0'
   const skin = '#ffefe0'

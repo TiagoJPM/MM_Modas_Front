@@ -1,5 +1,22 @@
+/* =========================================================
+   Página do produto (/produto/:slug)
+   ========================================================= */
+
+/* Botão "Voltar" (pílula do site, versão compacta) */
+.btn--back {
+  margin-top: var(--space-5);
+  padding: 8px 18px;
+  font-size: 14px;
+  background: var(--surface);
+}
+
+.btn--back:hover {
+  background: var(--laranja-100);
+}
+
+/* Trilha "Início / Loja / ..." */
 .breadcrumb {
-  padding: var(--space-5) 0;
+  padding: var(--space-4) 0 var(--space-5);
   font-size: 14px;
   color: var(--ink-soft);
 }
@@ -18,6 +35,7 @@
   font-weight: 700;
 }
 
+/* Layout: galeria à esquerda, informações à direita */
 .pdp {
   display: grid;
   grid-template-columns: 1.1fr 1fr;
@@ -27,6 +45,7 @@
 
 /* ---------- Galeria ---------- */
 
+/* A galeria acompanha a rolagem (sticky) no desktop */
 .pdp__gallery {
   position: sticky;
   top: calc(var(--header-h) + 16px);
@@ -119,6 +138,7 @@
   gap: var(--space-2);
 }
 
+/* Bolinhas de cor clicáveis */
 .swatch {
   width: 40px;
   height: 40px;
@@ -133,6 +153,7 @@
   transform: scale(1.05);
 }
 
+/* Botões de tamanho */
 .size {
   min-width: 54px;
   padding: 10px 14px;
@@ -163,6 +184,7 @@
   flex: 1;
 }
 
+/* Contador de quantidade (− 1 +), reaproveitado no carrinho */
 .qty {
   display: flex;
   align-items: center;
@@ -192,6 +214,7 @@
   font-weight: 700;
 }
 
+/* Caixa de vantagens (frete / troca) */
 .pdp__perks {
   list-style: none;
   padding: var(--space-4);
