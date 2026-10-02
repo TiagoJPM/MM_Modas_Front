@@ -48,6 +48,7 @@ export const products = [
     name: 'jogo da velha',
     category: 'camisetas',
     type: 'tee',
+    image: 'call_of_the_cthulhu.jpg',
     price: 89.9,
     oldPrice: 119.9,
     colors: [cor.lavanda, cor.pessego, cor.offWhite],
