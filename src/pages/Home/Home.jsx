@@ -66,7 +66,7 @@ function Home() {
               Bonzinho demais? <span className="hero__highlight">Aqui não.</span>
             </h1>
             <p className="hero__lead">
-              Roupas confortáveis, cheias de detalhe e com aquele sorriso maroto de quem sabe exatamente quem é.
+              Jogos nem um pouco tediosos, cheias de detalhe e com aquela animação marota de quem sabe exatamente quem é.
             </p>
             <div className="hero__cta">
               <Link to="/loja" className="btn btn--primary">

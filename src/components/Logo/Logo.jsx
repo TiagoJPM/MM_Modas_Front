@@ -13,7 +13,7 @@ function Logo({ size = 48, light = false }) {
       </span>
       <span className="logo__text">
         <span className="logo__mm">MM</span>
-        <span className="logo__modas">MODAS</span>
+        <span className="logo__modas">GAMES</span>
       </span>
     </span>
   )

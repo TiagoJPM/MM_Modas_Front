@@ -30,14 +30,14 @@ const TAM_MEIA = ['37-40', '41-44']
 const TAM_UNICO = ['Único']
 
 export const categories = [
-  { id: 'camisetas', name: 'Camisetas & Regatas', art: 'tee', bg: 'var(--laranja-200)' },
-  { id: 'camisas', name: 'Camisas', art: 'shirt', bg: 'var(--roxo-200)' },
-  { id: 'moletons', name: 'Moletons & Tricô', art: 'hoodie', bg: 'var(--roxo-100)' },
-  { id: 'jaquetas', name: 'Jaquetas', art: 'jacket', bg: 'var(--laranja-100)' },
-  { id: 'calcas-bermudas', name: 'Calças & Bermudas', art: 'pants', bg: 'var(--roxo-200)' },
-  { id: 'underwear', name: 'Underwear', art: 'boxer', bg: 'var(--laranja-200)' },
-  { id: 'training', name: 'Training', art: 'dryfit', bg: 'var(--laranja-100)' },
-  { id: 'acessorios', name: 'Acessórios', art: 'cap', bg: 'var(--roxo-100)' },
+  { id: 'camisetas', name: 'RPG', art: 'tee', bg: 'var(--laranja-200)' },
+  { id: 'camisas', name: 'FAMILIA', art: 'shirt', bg: 'var(--roxo-200)' },
+  { id: 'moletons', name: 'ACESSORIOS', art: 'hoodie', bg: 'var(--roxo-100)' },
+  { id: 'jaquetas', name: 'CARTAS', art: 'jacket', bg: 'var(--laranja-100)' },
+ // { id: 'calcas-bermudas', name: 'Calças & Bermudas', art: 'pants', bg: 'var(--roxo-200)' },
+  //{ id: 'underwear', name: 'Underwear', art: 'boxer', bg: 'var(--laranja-200)' },
+  //{ id: 'training', name: 'Training', art: 'dryfit', bg: 'var(--laranja-100)' },
+//{ id: 'acessorios', name: 'Acessórios', art: 'cap', bg: 'var(--roxo-100)' },
 ]
 
 export const products = [

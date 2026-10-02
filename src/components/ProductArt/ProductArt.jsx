@@ -23,7 +23,7 @@ const SHORTS = 'M54 52 L146 52 L158 134 L110 140 L100 96 L90 140 L42 134 Z'
 const shapes = {
   // Camiseta básica com "MM" no peito
   tee: (c) => (
-    <>
+     <>
       <path d={TEE_BODY} fill={c} />
       <path d="M78 40 Q100 56 122 40" fill="none" />
       <text x="100" y="122" textAnchor="middle" className="art-print">MM</text>
