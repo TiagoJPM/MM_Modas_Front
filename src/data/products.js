@@ -44,7 +44,7 @@ export const products = [
   // ---------- Camisetas & Regatas ----------
   {
     id: 1,
-    slug: 'camiseta-sorriso-maroto',
+    slug: 'jogo-da-velha',
     name: 'jogo da velha',
     category: 'camisetas',
     type: 'tee',
@@ -72,7 +72,7 @@ export const products = [
   },
   {
     id: 3,
-    slug: 'regata-cachos-ao-vento',
+    slug: 'Monopoli',
     name: 'Monopoli',
     category: 'camisetas',
     type: 'tank',
