@@ -55,7 +55,7 @@ export const products = [
     sizes: TAM_ROUPA,
     tags: ['novo'],
     description:
-      'A camiseta que começou tudo. Algodão penteado 100%, modelagem levemente oversized e o sorriso do Menino Mau estampado no peito.',
+      'Jogo da velha ou jogo de velha, um classico e bote classico nisso, talvez haja opções melhores',
   },
   {
     id: 2,
@@ -76,12 +76,13 @@ export const products = [
     name: 'Monopoli',
     category: 'camisetas',
     type: 'tank',
+    image: '/produtos/monopoli.png',
     price: 69.9,
     colors: [cor.pessego, cor.lavanda, cor.offWhite],
     sizes: TAM_ROUPA,
     tags: ['novo'],
     description:
-      'Cavas amplas, malha leve e caimento reto. Feita pro calor do Nordeste e pra quem gosta de deixar o braço falar.',
+      'monopoli, a proposta de sempre, mostre a todos como que o capitalismo já consumiu sua mente e que você sabe como tirar dinheiro ao maximo dos outros',
   },
   {
     id: 4,
@@ -123,7 +124,7 @@ export const products = [
     sizes: TAM_ROUPA,
     tags: ['novo'],
     description:
-      'Tricoline que não amassa, colarinho estruturado e punho com dois botões. Pra entrevista, formatura ou pra impressionar o chefe.',
+      'não, você não é o magnus carlsen, porem, ainda pode derrotar seu amigo no mesmo jogo dele',
   },
   {
     id: 7,
@@ -152,7 +153,7 @@ export const products = [
     sizes: TAM_ROUPA,
     tags: ['novo'],
     description:
-      'Moletom flanelado por dentro, capuz forrado e bolso canguru. Quentinho, mas sem perder a pose.',
+      'D&D talvez você seja realmente um nerd.',
   },
   {
     id: 9,
@@ -236,7 +237,7 @@ export const products = [
     sizes: TAM_ROUPA,
     tags: ['novo'],
     description:
-      'Moletom leve, punho na barra e cós com cordão. Confortável como pijama, apresentável como calça.',
+      'Vc é nerd, mas vc adora estar no hype',
   },
   {
     id: 15,
@@ -272,13 +273,14 @@ export const products = [
     name: 'Ordem Paranormal',
     category: 'underwear',
     type: 'boxer',
+    image: '/produtos/ordemparanormal.png',
     price: 99.9,
     oldPrice: 119.7,
     colors: [cor.lavanda, cor.pessego, cor.grafite],
     sizes: TAM_ROUPA,
     tags: ['novo'],
     description:
-      'Três boxers de algodão com elastano, cós largo com o logo MM e costura sem atrito. Conforto do começo ao fim do dia.',
+      'ordem paranormal, igualzinha a do celbit',
   },
   {
     id: 18,
@@ -317,7 +319,7 @@ export const products = [
     sizes: TAM_MEIA,
     tags: ['novo'],
     description:
-      'Meias cano médio com listras e o sorrisinho do mascote no tornozelo. Algodão penteado com reforço no calcanhar.',
+      'Tormentar 20, o jogo de mesa mais famoso somente no brasil',
   },
 
   // ---------- Training ----------
@@ -333,7 +335,7 @@ export const products = [
     sizes: TAM_ROUPA,
     tags: ['novo'],
     description:
-      'Tecido tecnológico que seca rápido, painéis laterais em tela e proteção UV 50+. Pro treino de verdade.',
+      'Porque ?, só tenho isso a dizer.',
   },
   {
     id: 22,
