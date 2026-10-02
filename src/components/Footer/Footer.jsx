@@ -23,7 +23,7 @@ function Footer() {
         <div className="footer__brand">
           <Logo size={52} light />
           <p>
-            Roupa com personalidade pra quem não cabe em rótulo. Feito com carinho (e um pouquinho de
+            Jogos com personalidade pra quem não cabe em rótulo. Feito com carinho (e um pouquinho de
             malícia).
           </p>
           <div className="footer__social">
