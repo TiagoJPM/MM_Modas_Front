@@ -48,6 +48,7 @@ export const products = [
     name: 'jogo da velha',
     category: 'camisetas',
     type: 'tee',
+    image: '',
     price: 89.9,
     oldPrice: 119.9,
     colors: [cor.lavanda, cor.pessego, cor.offWhite],
