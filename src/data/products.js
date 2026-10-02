@@ -48,7 +48,7 @@ export const products = [
     name: 'jogo da velha',
     category: 'camisetas',
     type: 'tee',
-    image: '',
+    image: '/produtos/Xadrez.png',
     price: 89.9,
     oldPrice: 119.9,
     colors: [cor.lavanda, cor.pessego, cor.offWhite],
