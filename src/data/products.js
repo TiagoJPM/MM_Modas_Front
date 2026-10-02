@@ -45,7 +45,7 @@ export const products = [
   {
     id: 1,
     slug: 'camiseta-sorriso-maroto',
-    name: 'Camiseta Sorriso Maroto',
+    name: 'jogo da velha',
     category: 'camisetas',
     type: 'tee',
     price: 89.9,
@@ -72,7 +72,7 @@ export const products = [
   {
     id: 3,
     slug: 'regata-cachos-ao-vento',
-    name: 'Regata Cachos ao Vento',
+    name: 'Monopoli',
     category: 'camisetas',
     type: 'tank',
     price: 69.9,
@@ -113,7 +113,7 @@ export const products = [
   {
     id: 6,
     slug: 'camisa-social-maroto',
-    name: 'Camisa Social Maroto',
+    name: 'xadrez',
     category: 'camisas',
     type: 'dressshirt',
     price: 189.9,
@@ -141,7 +141,7 @@ export const products = [
   {
     id: 8,
     slug: 'moletom-sem-filtro',
-    name: 'Moletom Sem Filtro',
+    name: 'D&D',
     category: 'moletons',
     type: 'hoodie',
     price: 219.9,
@@ -224,7 +224,7 @@ export const products = [
   {
     id: 14,
     slug: 'calca-jogger-domingo',
-    name: 'Calça Jogger Domingo',
+    name: 'Call of the Cthulhu',
     category: 'calcas-bermudas',
     type: 'jogger',
     price: 159.9,
@@ -265,7 +265,7 @@ export const products = [
   {
     id: 17,
     slug: 'kit-3-cuecas-boxer-maroto',
-    name: 'Kit 3 Cuecas Boxer Maroto',
+    name: 'Ordem Paranormal',
     category: 'underwear',
     type: 'boxer',
     price: 99.9,
@@ -304,7 +304,7 @@ export const products = [
   {
     id: 20,
     slug: 'kit-3-meias-sorriso',
-    name: 'Kit 3 Meias Sorriso',
+    name: 'Tormenta20',
     category: 'underwear',
     type: 'socks',
     price: 49.9,
@@ -319,7 +319,7 @@ export const products = [
   {
     id: 21,
     slug: 'camiseta-dry-fit-treino-pesado',
-    name: 'Camiseta Dry-Fit Treino Pesado',
+    name: 'war',
     category: 'training',
     type: 'dryfit',
     price: 99.9,
