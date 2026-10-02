@@ -160,8 +160,8 @@ function Home() {
             <span className="eyebrow">Manifesto</span>
             <h2 className="section-title">Ser Menino Mau é ser de verdade.</h2>
             <p className="muted">
-              A MM MODAS nasceu de uma conversa entre amigos na faculdade e virou jeito de vestir: criatividade,
-              conforto e atitude em cada peça.
+              A MM GAMES nasceu de uma conversa entre amigos na faculdade e virou jeito de se divertir: criatividade,
+              conforto e atitude em cada decisão.
             </p>
             <Link to="/sobre" className="btn btn--accent">
               Conheça a história

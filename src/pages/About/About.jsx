@@ -19,11 +19,11 @@ const story = [
   },
   {
     title: 'A criatividade',
-    text: 'Foi quando Daniel revelou que sempre teve vontade de exercer sua criatividade na moda: expressar seus sentimentos com atitude, em roupas confortáveis.',
+    text: 'Foi quando Daniel revelou que sempre teve vontade de exercer sua criatividade com jogos: expressar seus sentimentos com atitude, em jogos divertidos.',
   },
   {
     title: 'O empreendedorismo',
-    text: 'Essa vontade se juntou com o ímpeto empreendedor dos demais amigos — e assim nasceu a MM Modas.',
+    text: 'Essa vontade se juntou com o ímpeto empreendedor dos demais amigos — e assim nasceu a MM GAMES.',
   },
 ]
 
