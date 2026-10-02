@@ -24,10 +24,10 @@ const cor = {
 }
 
 // Grades de tamanho usadas pelos produtos
-const TAM_ROUPA = ['P', 'M', 'G', 'GG']
-const TAM_CALCA = ['38', '40', '42', '44', '46']
-const TAM_MEIA = ['37-40', '41-44']
-const TAM_UNICO = ['Único']
+const TAM_ROUPA = ['6L', '8L', '10L', '20L']
+const TAM_CALCA = ['6L', '8L', '10L', '20L']
+const TAM_MEIA =  ['6L', '8L', '10L', '20L']
+const TAM_UNICO = ['6L', '8L', '10L', '20L']
 
 export const categories = [
   { id: 'camisetas', name: 'RPG', art: 'tee', bg: 'var(--laranja-200)' },
