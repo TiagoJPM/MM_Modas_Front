@@ -75,7 +75,7 @@ function Footer() {
       {/* Linha final com copyright */}
       <div className="footer__bottom">
         <div className="container">
-          <p>© {year} MM MODAS · Projeto acadêmico · Menino Mau aprova.</p>
+          <p>© {year} MM GAMES · Projeto acadêmico · Menino Mau aprova.</p>
         </div>
       </div>
     </footer>
