@@ -123,6 +123,7 @@
 
 /* Botões redondos: carrinho e hambúrguer */
 .header__cart,
+.header__fav,
 .header__toggle {
   position: relative;
   display: grid;
@@ -137,8 +138,19 @@
   transition: transform 0.15s ease;
 }
 
-.header__cart:hover {
+.header__cart:hover,
+.header__fav:hover {
   transform: rotate(-8deg);
+}
+
+/* Favoritos: roxo claro, para diferenciar do carrinho */
+.header__fav {
+  background: var(--roxo-100);
+}
+
+/* Link de favoritos do menu: escondido no desktop (lá existe o ícone) */
+.header__link--fav-mobile {
+  display: none;
 }
 
 /* Bolinha com a quantidade de itens no carrinho */
@@ -210,5 +222,13 @@
   .header__account-label,
   .header__staff {
     display: none;
+  }
+
+  /* Sem espaço para mais um botão: favoritos vai para o menu */
+  .header__fav {
+    display: none;
+  }
+  .header__link--fav-mobile {
+    display: block;
   }
 }

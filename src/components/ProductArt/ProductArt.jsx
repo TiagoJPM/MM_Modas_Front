@@ -313,7 +313,7 @@ function ProductArt({ type = 'tee', color = '#c8b3f0', bg, className = '', label
   return (
     <div className={`product-art ${className}`} style={bg ? { background: bg } : undefined}>
       {image ? (
-        <img src={image} alt={label ?? ''} className="product-art__img" loading="lazy" />
+        <img src={image} alt={label ?? ''} className="product-art__img" loading="lazy" decoding="async" />
       ) : (
       <svg
         viewBox="0 0 200 200"

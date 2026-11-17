@@ -133,3 +133,10 @@ export const WhatsIcon = (p) => (
     <path d="M9 9.5c.5 2.5 2.5 4.5 5 5l1-1.5-2-1-1 1c-1-.5-1.5-1-2-2l1-1-1-2L9 9.5Z" />
   </Icon>
 )
+
+// Coração (favoritos). Com filled, fica preenchido com a cor do texto
+export const HeartIcon = ({ filled = false, ...p }) => (
+  <Icon {...p} fill={filled ? 'currentColor' : 'none'}>
+    <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8l1 1.1L12 21.2l7.8-7.7 1-1.1a5.5 5.5 0 0 0 0-7.8Z" />
+  </Icon>
+)

@@ -14,6 +14,8 @@ import ProductCard from '../../components/ProductCard/ProductCard.jsx'
 import Mascot from '../../components/Logo/Mascot.jsx'
 import { SearchIcon } from '../../components/Icons.jsx'
 import { categories, products } from '../../data/products.js'
+import { normalizeText } from '../../utils/format.js'
+import useDocumentTitle from '../../hooks/useDocumentTitle.js'
 import '../../components/ProductCard/ProductCard.css'
 import './Shop.css'
 
@@ -43,7 +45,7 @@ function Shop() {
   const visible = useMemo(() => {
     let list = products.filter((p) => {
       const matchCategory = activeCategory === 'todas' || p.category === activeCategory
-      const matchQuery = p.name.toLowerCase().includes(query.trim().toLowerCase())
+      const matchQuery = normalizeText(p.name).includes(normalizeText(query))
       const matchPromo = !onlyPromo || Boolean(p.oldPrice)
       return matchCategory && matchQuery && matchPromo
     })
@@ -55,7 +57,8 @@ function Shop() {
   }, [activeCategory, query, sort, onlyPromo])
 
   // Título da página muda conforme a categoria
-  const title = activeCategory === 'todas' ? 'Toda a loja' : categories.find((c) => c.id === activeCategory)?.name
+  const title = activeCategory === 'todas' ? 'Toda a loja' : (categories.find((c) => c.id === activeCategory)?.name ?? 'Loja')
+  useDocumentTitle(activeCategory === 'todas' ? 'Loja' : title)
 
   return (
     <div className="container shop">

@@ -7,6 +7,7 @@
 // =========================================================
 import { Link } from 'react-router-dom'
 import ProductArt from '../ProductArt/ProductArt.jsx'
+import FavoriteButton from '../FavoriteButton/FavoriteButton.jsx'
 import { formatPrice } from '../../utils/format.js'
 import './ProductCard.css'
 
@@ -22,6 +23,8 @@ function ProductCard({ product }) {
 
   return (
     <article className="product-card">
+      {/* Coração fica fora do <Link> para o clique não abrir o produto */}
+      <FavoriteButton product={product} />
       <Link to={`/produto/${product.slug}`} className="product-card__link">
         {/* Imagem + etiquetas */}
         <div className="product-card__media">

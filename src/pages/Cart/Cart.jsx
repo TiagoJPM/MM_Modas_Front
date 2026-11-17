@@ -14,9 +14,11 @@ import { useCart } from '../../context/CartContext.jsx'
 import { useUser } from '../../context/UserContext.jsx'
 import { FRETE_GRATIS_A_PARTIR } from '../../context/cartConfig.js'
 import { formatPrice } from '../../utils/format.js'
+import useDocumentTitle from '../../hooks/useDocumentTitle.js'
 import './Cart.css'
 
 function Cart() {
+  useDocumentTitle('Carrinho')
   const { items, subtotal, discount, shipping, total, coupon, updateQty, removeItem, applyCoupon, removeCoupon } =
     useCart()
   const { user } = useUser()

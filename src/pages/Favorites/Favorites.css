@@ -1,0 +1,17 @@
+/* =========================================================
+   Favorites — página de favoritos
+   ========================================================= */
+
+.favorites {
+  padding-bottom: var(--space-8);
+}
+
+/* Estado vazio: mascote + mensagem + botão */
+.favorites__empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-8) var(--space-4);
+  text-align: center;
+}

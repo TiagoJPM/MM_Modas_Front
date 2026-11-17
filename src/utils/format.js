@@ -14,3 +14,13 @@ export function formatPrice(value) {
 export function installments(value, max = 3) {
   return `ou ${max}x de ${formatPrice(value / max)} sem juros`
 }
+
+// Prepara texto para busca: tira acentos, espaços das pontas e maiúsculas.
+// "  Calças " -> "calcas"
+export function normalizeText(value) {
+  return value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .trim()
+    .toLowerCase()
+}

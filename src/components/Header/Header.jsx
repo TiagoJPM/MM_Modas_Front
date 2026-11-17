@@ -8,9 +8,10 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import Logo from '../Logo/Logo.jsx'
-import { BagIcon, MenuIcon, CloseIcon, UserIcon } from '../Icons.jsx'
+import { BagIcon, HeartIcon, MenuIcon, CloseIcon, UserIcon } from '../Icons.jsx'
 import { useCart } from '../../context/CartContext.jsx'
 import { useUser } from '../../context/UserContext.jsx'
+import { useFavorites } from '../../context/FavoritesContext.jsx'
 import './Header.css'
 
 // Links do menu principal (end: true = só fica ativo na rota exata "/")
@@ -26,11 +27,12 @@ function Header() {
   const [scrolled, setScrolled] = useState(false) // página rolada? (muda a borda)
   const { count } = useCart()
   const { user } = useUser()
+  const { count: favCount } = useFavorites()
 
   // Escuta a rolagem da página para mostrar a borda/sombra do header
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10)
-    window.addEventListener('scroll', onScroll)
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll) // limpeza ao desmontar
   }, [])
 
@@ -69,6 +71,10 @@ function Header() {
                 {link.label}
               </NavLink>
             ))}
+            {/* Só aparece no celular (lá o ícone de coração some da barra) */}
+            <NavLink to="/favoritos" onClick={close} className="header__link header__link--fav-mobile">
+              Favoritos{favCount > 0 && ` (${favCount})`}
+            </NavLink>
           </nav>
 
           <div className="header__actions">
@@ -83,6 +89,12 @@ function Header() {
               <span className="header__account-label">{user ? `Olá, ${firstName}` : 'Cadastrar'}</span>
               {user?.tipo === 'funcionario' && <span className="header__staff">equipe</span>}
             </NavLink>
+
+            {/* Favoritos com contador */}
+            <Link to="/favoritos" className="header__fav" onClick={close} aria-label={`Favoritos: ${favCount} itens`}>
+              <HeartIcon filled={favCount > 0} />
+              {favCount > 0 && <span className="header__badge">{favCount}</span>}
+            </Link>
 
             {/* Carrinho com contador de itens */}
             <Link to="/carrinho" className="header__cart" onClick={close} aria-label={`Carrinho com ${count} itens`}>

@@ -13,6 +13,7 @@ import Mascot from '../../components/Logo/Mascot.jsx'
 import { InstagramIcon, WhatsIcon } from '../../components/Icons.jsx'
 import { faq } from '../../data/faq.js'
 import { isEmail } from '../../utils/validators.js'
+import useDocumentTitle from '../../hooks/useDocumentTitle.js'
 import './Contact.css'
 
 // Opções do campo "Assunto"
@@ -21,6 +22,7 @@ const subjects = ['Dúvida sobre produto', 'Meu pedido', 'Trocas e devoluções'
 const emptyForm = { nome: '', email: '', assunto: subjects[0], mensagem: '' }
 
 function Contact() {
+  useDocumentTitle('Contato')
   const [form, setForm] = useState(emptyForm)
   const [errors, setErrors] = useState({})
   const [sent, setSent] = useState(false)

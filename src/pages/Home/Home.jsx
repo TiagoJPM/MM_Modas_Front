@@ -18,6 +18,7 @@ import ProductCard from '../../components/ProductCard/ProductCard.jsx'
 import { ArrowIcon, TruckIcon, RefreshIcon, LeafIcon } from '../../components/Icons.jsx'
 import { categories, products } from '../../data/products.js'
 import '../../components/ProductCard/ProductCard.css'
+import useDocumentTitle from '../../hooks/useDocumentTitle.js'
 import './Home.css'
 
 // Palavras que passam na faixa animada
@@ -43,6 +44,7 @@ const pillars = [
 ]
 
 function Home() {
+  useDocumentTitle()
   // Novidades = produtos marcados com a tag 'novo' (mostra até 8)
   const novidades = products.filter((p) => p.tags.includes('novo')).slice(0, 8)
 

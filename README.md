@@ -20,6 +20,7 @@ npm run preview   # testa o build
 | `/` | Início: hero, categorias, novidades, manifesto, newsletter |
 | `/loja` | Catálogo com filtro por categoria (`?categoria=`), busca, promoções e ordenação |
 | `/produto/:slug` | Detalhe do produto: cor, tamanho, quantidade, adicionar ao carrinho |
+| `/favoritos` | Produtos marcados com o coração (salvos no `localStorage`) |
 | `/carrinho` | Carrinho com barra de frete grátis e cupom (`MENINOMAU10`) |
 | `/cadastro` | Cadastro de **cliente** ou **funcionário** (matrícula de 8 caracteres). Depois de cadastrado, vira "Minha conta" |
 | `/checkout` | Só abre com cadastro feito; endereço vem preenchido; CEP limitado a 8 dígitos |
@@ -32,7 +33,8 @@ npm run preview   # testa o build
 ```
 src/
 ├── components/        # Header, Footer, Logo/Mascot, ProductCard, ProductArt, Toast, Icons
-├── context/           # CartContext (carrinho), UserContext (cadastro) e regras do carrinho
+├── context/           # CartContext (carrinho), UserContext (cadastro), FavoritesContext e regras do carrinho
+├── hooks/             # useDocumentTitle (título da aba por página)
 ├── data/products.js   # catálogo fictício (8 categorias, 32 produtos)
 ├── data/faq.js        # perguntas frequentes (Contato + rodapé)
 ├── pages/             # uma pasta por página (JSX + CSS)
@@ -64,6 +66,6 @@ Todas as cores ficam em `:root` no `global.css` — mude ali e o site inteiro ac
 
 ## Fotos dos produtos
 
-As peças são ilustrações em SVG (`ProductArt`). Para usar fotos reais, troque o
+As fotos ficam em `public/produtos/` no formato **WebP** (até 800 px, ~10–30 KB cada). As peças sem foto usam ilustrações em SVG (`ProductArt`). Para usar fotos reais, troque o
 `<ProductArt ... />` por `<img src={product.image} alt={product.name} />` e adicione
 o campo `image` em `data/products.js`.

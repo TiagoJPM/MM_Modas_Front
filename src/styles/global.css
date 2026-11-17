@@ -96,6 +96,13 @@ body {
   flex: 1;
 }
 
+/* Aviso exibido enquanto uma página (lazy) carrega */
+.main__loading {
+  padding: var(--space-8) var(--space-4);
+  text-align: center;
+  color: var(--ink-soft, inherit);
+}
+
 h1,
 h2,
 h3,

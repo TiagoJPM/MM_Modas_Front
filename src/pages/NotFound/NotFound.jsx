@@ -4,9 +4,11 @@
 // =========================================================
 import { Link } from 'react-router-dom'
 import Mascot from '../../components/Logo/Mascot.jsx'
+import useDocumentTitle from '../../hooks/useDocumentTitle.js'
 import './NotFound.css'
 
 function NotFound() {
+  useDocumentTitle('Página não encontrada')
   return (
     <div className="container not-found">
       <div className="not-found__code" aria-hidden="true">

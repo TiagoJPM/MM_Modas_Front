@@ -10,6 +10,8 @@ import { useState } from 'react'
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom'
 import ProductArt from '../../components/ProductArt/ProductArt.jsx'
 import ProductCard from '../../components/ProductCard/ProductCard.jsx'
+import FavoriteButton from '../../components/FavoriteButton/FavoriteButton.jsx'
+import useDocumentTitle from '../../hooks/useDocumentTitle.js'
 import { BackIcon, TruckIcon, RefreshIcon } from '../../components/Icons.jsx'
 import { getProductBySlug, getCategoryName, products } from '../../data/products.js'
 import { useCart } from '../../context/CartContext.jsx'
@@ -35,6 +37,7 @@ function ProductView({ product }) {
   const { addItem } = useCart()
   const navigate = useNavigate()
   const location = useLocation()
+  useDocumentTitle(product.name)
 
   // Volta para a página anterior; se o produto foi aberto direto (sem histórico), vai para a Loja
   const handleBack = () => {
@@ -152,6 +155,7 @@ function ProductView({ product }) {
             <button type="button" className="btn btn--primary pdp__add" onClick={handleAdd}>
               Adicionar ao carrinho
             </button>
+            <FavoriteButton product={product} inline />
           </div>
 
           {/* Vantagens */}

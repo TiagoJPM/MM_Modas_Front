@@ -9,6 +9,7 @@
 // =========================================================
 import { Link } from 'react-router-dom'
 import Mascot from '../../components/Logo/Mascot.jsx'
+import useDocumentTitle from '../../hooks/useDocumentTitle.js'
 import './About.css'
 
 // A história da MM Modas contada em 3 pilares
@@ -35,6 +36,7 @@ const values = [
 ]
 
 function About() {
+  useDocumentTitle('Nossa história')
   return (
     <div className="about">
       {/* ---------- 1. Abertura ---------- */}

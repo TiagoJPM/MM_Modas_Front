@@ -25,6 +25,7 @@ import {
   fetchAddressByCep,
   UFS,
 } from '../../utils/validators.js'
+import useDocumentTitle from '../../hooks/useDocumentTitle.js'
 import './Register.css'
 
 // Valores iniciais do formulário (tudo vazio)
@@ -74,6 +75,7 @@ function validate(form) {
 }
 
 function Register() {
+  useDocumentTitle('Cadastro')
   const { user, register, logout } = useUser()
   const { count, showToast } = useCart()
   const navigate = useNavigate()

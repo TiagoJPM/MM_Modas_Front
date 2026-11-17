@@ -10,6 +10,7 @@
 }
 
 .product-card {
+  position: relative; /* referência para o coração de favoritar */
   background: var(--surface);
   border: 2px solid var(--roxo-900);
   border-radius: var(--radius-md);

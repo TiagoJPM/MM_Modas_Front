@@ -6,12 +6,14 @@
 //  - BrowserRouter: habilita as rotas (React Router)
 //  - UserProvider: dados do usuário cadastrado
 //  - CartProvider: carrinho de compras
+//  - FavoritesProvider: produtos favoritados (usa o toast do carrinho)
 // =========================================================
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { UserProvider } from './context/UserContext.jsx'
 import { CartProvider } from './context/CartContext.jsx'
+import { FavoritesProvider } from './context/FavoritesContext.jsx'
 import App from './App.jsx'
 import './styles/global.css' // variáveis de cor, fontes e estilos base
 
@@ -20,7 +22,9 @@ createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <UserProvider>
         <CartProvider>
-          <App />
+          <FavoritesProvider>
+            <App />
+          </FavoritesProvider>
         </CartProvider>
       </UserProvider>
     </BrowserRouter>

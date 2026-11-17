@@ -16,6 +16,7 @@ import { useUser } from '../../context/UserContext.jsx'
 import { formatPrice } from '../../utils/format.js'
 import { maskCep, isCep, isEmail } from '../../utils/validators.js'
 import '../Cart/Cart.css' // reaproveita o estilo do "resumo" do carrinho
+import useDocumentTitle from '../../hooks/useDocumentTitle.js'
 import './Checkout.css'
 
 // Opções de pagamento exibidas como cards
@@ -26,6 +27,7 @@ const paymentOptions = [
 ]
 
 function Checkout() {
+  useDocumentTitle('Checkout')
   const { items, total, count, clearCart } = useCart()
   const { user } = useUser()
 
